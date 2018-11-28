@@ -3,5 +3,48 @@ const app = express();
 const fetch = require('node-fetch');
 
 app.use(express.json());
-app.use(express.static(__dirname + '/backend'));
+app.use(express.static(__dirname + '/frontend'));
 let mongoose = require('mongoose');
+mongoose.connect('mongodb://admin:admin123@ds026018.mlab.com:26018/asa_fodbold', {useNewUrlParser: true});
+
+const morgan = require('morgan');
+const session = require('express-session');
+app.use(morgan('tiny'));
+app.use(session({secret: 'hemmelig', saveUninitialized: true, resave: true}));
+
+app.post('/login', function (request, response) {
+    const {name, password} = request.body;
+    if (name === 'nn' && password === 'pp') {
+        request.session.name = name;
+        response.send({ok: true});
+    } else {
+        response.send({ok: false});
+    }
+});
+
+app.get('/session', function (request, response) {
+    const name = request.session.name;
+    // render('') henviser til handlebars. TODO handlebars eller html til render
+    if (name) {
+        response.render('session', {name});
+    }
+    else {
+        response.render('login');
+    }
+});
+
+app.get('/logout', function (request, response) {
+    request.session.destroy(function (err) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            response.redirect('/');
+        }
+    });
+});
+
+
+app.listen(8080);
+
+console.log('Lytter på port 8080 ...');
