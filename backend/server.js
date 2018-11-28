@@ -1,9 +1,13 @@
 let express = require('express');
 const app = express();
 const fetch = require('node-fetch');
+const hbs = require('hbs');
 
 app.use(express.json());
 app.use(express.static(__dirname + '/frontend'));
+app.set('view engine', 'hbs');
+app.set('views', 'templates');
+
 let mongoose = require('mongoose');
 mongoose.connect('mongodb://admin:admin123@ds026018.mlab.com:26018/asa_fodbold', {useNewUrlParser: true});
 
