@@ -2,10 +2,59 @@
 <html>
 <head>
   <title>Express-session</title>
+    <link rel="stylesheet" href="style.css"/>
 </head>
   <body>
-    <h3>Velkommen {{name}}!</h3>
-    <a href="/logout">Log ud</a>
+    <div id="ReservationsData">
+    <div>
+        <h2>Information</h2>
+    </div>
+    <div>
+        <label>Lejer: <input type="text"></label>
+    </div>
+    <div>
+        <label>Kontaktperson: <input type="text"></label>
+    </div>
+    <div>
+        <label>Mail: <input type="text"></label>
+    </div>
+    <div>
+        <label>Tlf: <input type="text"></label>
+    </div>
+    <br>
+    <div>
+        <label>Kontakt ASA: <input type="text"></label>
+    </div>
+    <div>
+        <label> Mail: <input type="text"></label>
+    </div>
+    <div>
+        <label> Tlf: <input type="text"></label>
+    </div>
+    <br>
+    <div>
+         <label id="checkbox1">Lys: <input type="checkbox"></label> <label id="checkbox2">Omkl: <input type="checkbox"></label>
+    </div>
+    <br>
+    <div>
+            <label>Bemærkninger: <textarea></textarea></label>
+    </div>
+    </div>
+    <div id="PrisData">
+    <div>
+        <label>Pris: Bane</label>
+    </div>
+    <div>
+        <label>Pris: Lys</label>
+    </div>
+    </div>
+    <br>
+        <div>
+            <button>Reserver tid</button>
+        </div>
+        <div>
+             <a href="/logout">Log ud</a>
+        </div>
   </body>
 </html>
 

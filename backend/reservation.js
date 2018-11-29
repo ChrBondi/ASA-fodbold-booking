@@ -2,8 +2,8 @@ class reservation {
 
     date;
     footballField;
-    start;
-    end;
+    startTime;
+    endTime;
     lights;
     lockerRoom;
     renter;

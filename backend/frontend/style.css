@@ -1,0 +1,40 @@
+body {
+    grid-template-columns: repeat(2,1fr);
+}
+
+label {
+    text-align: left;
+
+}​
+
+input[type="text"]{
+
+}
+
+input[type="checkbox"]{
+
+}
+
+#ReservationsData {
+    grid-column: 1/2;
+    display: grid;
+    grid-gap: 10px;
+    font-family: Arial;
+    padding: 3px;
+    padding-left: 40px;
+    width: 185px;
+}
+
+#PrisData {
+    grid-column: 2/3;
+}
+
+button {
+    max-width: 90px;
+    margin: fill;
+}
+a {
+    text-align: right;
+}
+
+
