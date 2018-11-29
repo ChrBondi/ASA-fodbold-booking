@@ -58,7 +58,7 @@ app.post('/login', function (request, response) {
 
 app.get('/session', function (request, response) {
     const name = request.session.name;
-    // render('') henviser til handlebars. TODO handlebars eller html til render
+    // render('') henviser til handlebars.
     if (name) {
         response.render('frontpage', {name});
     }
