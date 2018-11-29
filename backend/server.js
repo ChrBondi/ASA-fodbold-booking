@@ -51,4 +51,6 @@ app.get('/logout', function (request, response) {
 
 app.listen(8080);
 
+module.exports = app;
+
 console.log('Lytter på port 8080 ...');
