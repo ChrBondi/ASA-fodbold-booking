@@ -50,6 +50,7 @@ app.get('/logout', function (request, response) {
 
 
 app.listen(8080);
+app.set('views', __dirname + '/templates', "views");
 
 module.exports = app;
 
