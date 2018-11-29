@@ -6,53 +6,47 @@
 </head>
   <body>
   <h1>Reservation</h1>
-    <div class="column" id="ReservationsData">
-    <div>
+  <div class="grid-container" id="ReservationsData">
+    <div class="grid-item">
         <h2>Information</h2>
     </div>
-    <div>
+    <div class="grid-item">
         <label>Lejer: <input type="text"></label>
     </div>
-    <div>
+    <div class="grid-item">
         <label>Kontaktperson: <input type="text"></label>
     </div>
-    <div>
+    <div class="grid-item">
         <label>Mail: <input type="text"></label>
     </div>
-    <div>
+    <div class="grid-item">
         <label>Tlf: <input type="text"></label>
     </div>
     <br>
-    <div>
+    <div class="grid-item">
         <label>Kontakt ASA: <input type="text"></label>
     </div>
-    <div>
+    <div class="grid-item">
         <label> Mail: <input type="text"></label>
     </div>
-    <div>
+    <div class="grid-item">
         <label> Tlf: <input type="text"></label>
     </div>
     <br>
-    <div>
+    <div class="grid-item">
          <label id="checkbox1">Lys: <input type="checkbox"></label> <label id="checkbox2">Omkl: <input type="checkbox"></label>
     </div>
     <br>
-    <div>
+    <div class="grid-item">
             <label>Bemærkninger: <textarea></textarea></label>
     </div>
     </div>
-    <div class="column" id="PrisData">
+    <div class="grid-container" id="PrisData">
 
-        <div>
+        <div class="grid-item">
             <h2>Pris oversigt</h2>
         </div>
-
-    </div>
-    <br>
-        <div>
-            <button>Reserver tid</button>
-        </div>
-        <table>
+        <table class="grid-item">
             <tr>
             <th>   </th>
             <th>Banetype</th>
@@ -87,6 +81,12 @@
                 <td> </td>
             </tr>
         </table>
+    </div>
+    <br>
+    <div class="grid-item">
+          <button>Reserver tid</button>
+    </div>
+    <br>
         <div>
              <a href="/logout">Log ud</a>
         </div>
