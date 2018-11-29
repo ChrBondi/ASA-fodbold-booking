@@ -17,10 +17,9 @@ app.use(morgan('tiny'));
 app.use(session({secret: 'hemmelig', saveUninitialized: true, resave: true}));
 
 let bookingSchema = new mongoose.Schema({
-    date : String,
+    startDate : Date,
+    endDate : Date,
     footballField : String,
-    startTime : String,
-    endTime : String,
     light : Boolean,
     lockerRoom : Boolean,
     renter : String,
@@ -33,11 +32,10 @@ let bookingSchema = new mongoose.Schema({
 
 let booking = mongoose.model('Bookinger', bookingSchema);
 
-/* booking.create({
-    date : "29-11-2018",
+    booking.create({
+    startDate : new Date('November 29, 2018 12:00:00'),
+    endDate : new Date('November 29, 2018 15:00:00'),
     footballField : "kunst5m1",
-    startTime : "15:00",
-    endTime : "17:00",
     light : true,
     lockerRoom: false,
     renter : "AAAA",
@@ -47,36 +45,6 @@ let booking = mongoose.model('Bookinger', bookingSchema);
     price : 200,
     comment : null
 })
-
-booking.create({
-    date : "29-11-2018",
-    footballField : "kunst5m1",
-    startTime : "13:00",
-    endTime : "15:00",
-    light : true,
-    lockerRoom: false,
-    renter : "CCCC",
-    contatctPerson : "DDDD",
-    mail : "CCCC@live.com",
-    phone : null,
-    price : 200,
-    comment : null
-})
-
-booking.create({
-    date : "29-11-2018",
-    footballField : "kunst5m2",
-    startTime : "17:00",
-    endTime : "19:00",
-    light : true,
-    lockerRoom: false,
-    renter : "EEEE",
-    contatctPerson : "FFFF",
-    mail : "EEEE@live.com",
-    phone : null,
-    price : 200,
-    comment : null
-}) */
 
 app.post('/login', function (request, response) {
     const {name, password} = request.body;
@@ -92,7 +60,7 @@ app.get('/session', function (request, response) {
     const name = request.session.name;
     // render('') henviser til handlebars. TODO handlebars eller html til render
     if (name) {
-        response.render('session', {name});
+        response.render('frontpage', {name});
     }
     else {
         response.render('login');
@@ -110,8 +78,8 @@ app.get('/logout', function (request, response) {
     });
 });
 
-app.get('/stats', function(request, response) {
-    booking.find({footballField: "kunst5m1"})
+app.get('/api/bookings/:name', function(request, response) {
+    booking.find({footballField: request.params.name})
     .then(result => response.json(result))
 });
 
