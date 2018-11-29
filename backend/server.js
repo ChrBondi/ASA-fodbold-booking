@@ -16,6 +16,68 @@ const session = require('express-session');
 app.use(morgan('tiny'));
 app.use(session({secret: 'hemmelig', saveUninitialized: true, resave: true}));
 
+let bookingSchema = new mongoose.Schema({
+    date : String,
+    footballField : String,
+    startTime : String,
+    endTime : String,
+    light : Boolean,
+    lockerRoom : Boolean,
+    renter : String,
+    contatctPerson : String,
+    mail : String,
+    phone: String,
+    price : Number,
+    comment : String
+});
+
+let booking = mongoose.model('Bookinger', bookingSchema);
+
+/* booking.create({
+    date : "29-11-2018",
+    footballField : "kunst5m1",
+    startTime : "15:00",
+    endTime : "17:00",
+    light : true,
+    lockerRoom: false,
+    renter : "AAAA",
+    contatctPerson : "BBBB",
+    mail : "aaaa@live.com",
+    phone : null,
+    price : 200,
+    comment : null
+})
+
+booking.create({
+    date : "29-11-2018",
+    footballField : "kunst5m1",
+    startTime : "13:00",
+    endTime : "15:00",
+    light : true,
+    lockerRoom: false,
+    renter : "CCCC",
+    contatctPerson : "DDDD",
+    mail : "CCCC@live.com",
+    phone : null,
+    price : 200,
+    comment : null
+})
+
+booking.create({
+    date : "29-11-2018",
+    footballField : "kunst5m2",
+    startTime : "17:00",
+    endTime : "19:00",
+    light : true,
+    lockerRoom: false,
+    renter : "EEEE",
+    contatctPerson : "FFFF",
+    mail : "EEEE@live.com",
+    phone : null,
+    price : 200,
+    comment : null
+}) */
+
 app.post('/login', function (request, response) {
     const {name, password} = request.body;
     if (name === 'nn' && password === 'pp') {
