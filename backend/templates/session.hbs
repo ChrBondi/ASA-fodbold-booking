@@ -2,10 +2,94 @@
 <html>
 <head>
   <title>Express-session</title>
+    <link rel="stylesheet" href="style.css"/>
 </head>
   <body>
-    <h3>Velkommen {{name}}!</h3>
-    <a href="/logout">Log ud</a>
+  <h1>Reservation</h1>
+    <div class="column" id="ReservationsData">
+    <div>
+        <h2>Information</h2>
+    </div>
+    <div>
+        <label>Lejer: <input type="text"></label>
+    </div>
+    <div>
+        <label>Kontaktperson: <input type="text"></label>
+    </div>
+    <div>
+        <label>Mail: <input type="text"></label>
+    </div>
+    <div>
+        <label>Tlf: <input type="text"></label>
+    </div>
+    <br>
+    <div>
+        <label>Kontakt ASA: <input type="text"></label>
+    </div>
+    <div>
+        <label> Mail: <input type="text"></label>
+    </div>
+    <div>
+        <label> Tlf: <input type="text"></label>
+    </div>
+    <br>
+    <div>
+         <label id="checkbox1">Lys: <input type="checkbox"></label> <label id="checkbox2">Omkl: <input type="checkbox"></label>
+    </div>
+    <br>
+    <div>
+            <label>Bemærkninger: <textarea></textarea></label>
+    </div>
+    </div>
+    <div class="column" id="PrisData">
+
+        <div>
+            <h2>Pris oversigt</h2>
+        </div>
+
+    </div>
+    <br>
+        <div>
+            <button>Reserver tid</button>
+        </div>
+        <table>
+            <tr>
+            <th>   </th>
+            <th>Banetype</th>
+            <th>Pris</th>
+            <th>Timér</th>
+            <th>Á kr.</th>
+            <th>I alt</th>
+            </tr>
+            <tr>
+                <td>Pris baneleje</td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+            </tr>
+            <tr>
+                <td>Pris Lys</td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+
+            </tr>
+            <tr>
+                <td>Pris i alt</td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+            </tr>
+        </table>
+        <div>
+             <a href="/logout">Log ud</a>
+        </div>
   </body>
 </html>
 

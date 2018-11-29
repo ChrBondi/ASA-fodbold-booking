@@ -110,6 +110,11 @@ app.get('/logout', function (request, response) {
     });
 });
 
+app.get('/stats', function(request, response) {
+    booking.find({footballField: "kunst5m1"})
+    .then(result => response.json(result))
+});
+
 
 app.listen(8080);
 app.set('views', __dirname + '/templates', "views");
