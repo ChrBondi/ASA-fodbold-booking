@@ -5,10 +5,10 @@
     <link rel="stylesheet" href="style.css"/>
 </head>
   <body>
-  <h1>Reservation</h1>
-  <div class="grid-container" id="ReservationsData">
+  <h1>Booking</h1>
+  <div class="grid-container" id="bookingData">
     <div class="grid-item">
-        <h2>Information</h2>
+        <h2>Kontakt information</h2>
     </div>
     <div class="grid-item">
         <label>Lejer: <input type="text"></label>
@@ -41,7 +41,15 @@
             <label>Bemærkninger: <textarea></textarea></label>
     </div>
     </div>
-    <div class="grid-container" id="PrisData">
+  <div class="grid-container" id="dateData">
+      <h2>Booking information</h2>
+      <label>Bane valg: <input placeholder="kunstXmX"></label>
+      <br>
+    <label>Start dato: <input class="date" required placeholder="YYYY-MM-DDTHH:MM:SS"> </label>
+      <br>
+      <label>Slut dato: <input class="date" required placeholder="YYYY-MM-DDTHH:MM:SS"> </label>
+  </div>
+    <div class="grid-container" id="priceData">
 
         <div class="grid-item">
             <h2>Pris oversigt</h2>
@@ -70,7 +78,6 @@
                 <td> </td>
                 <td> </td>
                 <td> </td>
-
             </tr>
             <tr>
                 <td>Pris i alt</td>
