@@ -49,7 +49,7 @@ app.get('/session', function (request, response) {
         response.render('frontpage', {name});
     }
     else {
-        response.render('login');
+        response.redirect('/');
     }
 });
 
