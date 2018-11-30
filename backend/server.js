@@ -46,7 +46,7 @@ app.get('/session', function (request, response) {
     const name = request.session.name;
     // render('') henviser til handlebars.
     if (name) {
-        response.render('frontpage', {name});
+        response.render('dashboard', {name});
     }
     else {
         response.redirect('/');
@@ -54,7 +54,7 @@ app.get('/session', function (request, response) {
 });
 
 app.get('/booking', function(request, response){
-    response.render('booking');
+    response.render('bookingForm');
 });
 
 app.get('/logout', function (request, response) {
