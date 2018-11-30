@@ -27,25 +27,10 @@ let bookingSchema = new mongoose.Schema({
     contatctPerson : String,
     mail : String,
     phone: String,
-    price : Number,
     comment : String
 });
 
 let booking = mongoose.model('Bookinger', bookingSchema);
-
-    booking.create({
-    startDate : new Date('November 29, 2018 12:00:00'),
-    endDate : new Date('November 29, 2018 15:00:00'),
-    footballField : "kunst5m1",
-    light : true,
-    lockerRoom: false,
-    renter : "AAAA",
-    contatctPerson : "BBBB",
-    mail : "aaaa@live.com",
-    phone : null,
-    price : 200,
-    comment : null
-});
 
 app.post('/login', function (request, response) {
     const {name, password} = request.body;
@@ -87,6 +72,23 @@ app.get('/api/bookings/:name', function(request, response) {
     booking.find({footballField: request.params.name})
     .then(result => response.json(result))
 });
+
+app.post('/api/bookings', function(request, response) {
+    booking.create({
+        startDate : request.body.startDate,
+        endDate : request.body.endDate,
+        footballField : request.body.footballField,
+        light : request.body.light,
+        lockerRoom : request.body.lockerRoom,
+        renter : request.body.renter,
+        contactPerson : request.body.contactPerson,
+        mail : request.body.mail,
+        phone : request.body.phone,
+        comment : request.body.comment
+    }).then(res => {
+        response.json(res);
+    })
+})
 
 
 app.listen(8080);

@@ -19,3 +19,33 @@ function getBookings(bane){
             document.querySelector('#bookings').innerHTML = compiledBookingPerDate({bookings});
         })
 }
+
+function createBooking() {
+    let data = {
+        startDate : document.getElementById("startDate").value,
+        endDate : document.getElementById("endDate").value,
+        footballField : document.getElementById("footballField").value,
+        light : document.getElementById("light").checked,
+        lockerRoom : document.getElementById("lockerroom").checked,
+        renter : document.getElementById("renter").value,
+        contactPerson : document.getElementById("contactPerson").value,
+        mail : document.getElementById("mail").value,
+        phone : document.getElementById("phone").value,
+        comment : document.getElementById("comment").value 
+    };
+
+    fetch('/api/bookings', {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": 'application/json'
+        }
+    })
+    .then(resultat => {
+        if (resultat.status >= 400)
+            throw new Error(resultat.status);
+        else {
+            return resultat.json();
+        }
+    })
+}
