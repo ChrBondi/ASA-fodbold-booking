@@ -44,7 +44,7 @@ let booking = mongoose.model('Bookinger', bookingSchema);
     phone : null,
     price : 200,
     comment : null
-})
+});
 
 app.post('/login', function (request, response) {
     const {name, password} = request.body;
@@ -65,6 +65,10 @@ app.get('/session', function (request, response) {
     else {
         response.render('login');
     }
+});
+
+app.get('/booking', function(request, response){
+    response.render('booking');
 });
 
 app.get('/logout', function (request, response) {
