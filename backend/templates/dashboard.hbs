@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Express-session</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="style.css"/>
     <script src="handlebars-v4.0.12.js"></script>
     <script src="controller.js"></script>
-
 </head>
 <body>
-<div class="dropdown">
-  <button class="dropbtn">Baner</button>
-  <div class="dropdown-content">
-    <p onclick="getBookings('kunst5m1')">5-mands 1</p>
-    <p onclick="getBookings('kunst5m2')">5-mands 2</p>
-    <p onclick="getBookings('kunst3m1')">3-mands 1</p>
-    <p onclick="getBookings('kunst3m2')">3-mands 2</p>
-    <p onclick="getBookings('kunst3m3')">3-mands 3</p>
-    <p onclick="getBookings('kunst3m4')">3-mands 4</p>
-    <p onclick="getBookings('futsal')">Futsal</p>
-  </div>
+<div>
+    <select onchange="getBookings(this.options[this.selectedIndex].value)">
+        <option disabled selected value> -- select an option --</option>
+        <option value="kunst5m1">5-mands 1</option>
+        <option value="kunst5m2">5-mands 2</option>
+        <option value="kunst3m1">3-mands 1</option>
+        <option value="kunst3m2">3-mands 2</option>
+        <option value="kunst3m3">3-mands 3</option>
+        <option value="kunst3m4">3-mands 4</option>
+        <option value="futsal">Futsal</option>
+    </select>
 </div>
 <div id="bookings">
     {{#each booking}}
