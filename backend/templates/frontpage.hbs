@@ -3,7 +3,9 @@
 <head>
   <title>Express-session</title>
     <link rel="stylesheet" href="session.css"/>
+    <script src="handlebars-v4.0.12.js"></script>
     <script src="controller.js"></script>
+
 </head>
 <body>
 <div class="dropdown">
@@ -18,5 +20,9 @@
     <p onclick="getBookings('futsal')">Futsal</p>
   </div>
 </div>
-
+<div id="bookings">
+    {{#each booking}}
+        <p>Start tid: {{this.startDate}} Slut tid: {{this.endDate}}</p>
+    {{/each}}
+</div>
 </body>

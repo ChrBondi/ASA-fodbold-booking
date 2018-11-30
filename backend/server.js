@@ -7,6 +7,7 @@ app.use(express.json());
 app.use(express.static(__dirname + '/frontend'));
 app.set('view engine', 'hbs');
 app.set('views', 'templates');
+hbs.registerPartials('templates');
 
 let mongoose = require('mongoose');
 mongoose.connect('mongodb://admin:admin123@ds026018.mlab.com:26018/asa_fodbold', {useNewUrlParser: true});
@@ -14,7 +15,7 @@ mongoose.connect('mongodb://admin:admin123@ds026018.mlab.com:26018/asa_fodbold',
 const morgan = require('morgan');
 const session = require('express-session');
 app.use(morgan('tiny'));
-app.use(session({secret: 'hemmelig', saveUninitialized: true, resave: true}));
+app.use(session({secret: 'secret', saveUninitialized: true, resave: true}));
 
 let bookingSchema = new mongoose.Schema({
     startDate : Date,
