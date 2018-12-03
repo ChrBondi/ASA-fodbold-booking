@@ -1,55 +1,59 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Express-session</title>
-    <link rel="stylesheet" href="style.css"/>
+    <title>Express-session</title>
+    <link rel="stylesheet" href="style.css" />
     <script src="controller.js"></script>
 </head>
-  <body>
-  <h1>Booking</h1>
-  <div class="grid-container" id="bookingData">
-    <div class="grid-item">
-        <h2>Kontakt information</h2>
-    </div>
-    <div class="grid-item">
-        <label>Lejer: <input type="text" id="renter"></label>
-    </div>
-    <div class="grid-item">
-        <label>Kontaktperson: <input type="text" id="contactPerson"></label>
-    </div>
-    <div class="grid-item">
-        <label>Mail: <input type="text" id="mail"></label>
-    </div>
-    <div class="grid-item">
-        <label>Tlf: <input type="text" id="phone"></label>
-    </div>
-    <br>
-    <div class="grid-item">
-        <label>Kontakt ASA: <input type="text"></label>
-    </div>
-    <div class="grid-item">
-        <label> Mail: <input type="text"></label>
-    </div>
-    <div class="grid-item">
-        <label> Tlf: <input type="text"></label>
-    </div>
-    <br>
-    <div class="grid-item">
-         <label id="checkbox1">Lys: <input type="checkbox" id="light"></label> <label id="checkbox2">Omkl: <input type="checkbox" id="lockerroom"></label>
-    </div>
-    <br>
-    <div class="grid-item">
+
+<body>
+    <h1>Booking</h1>
+    <div class="grid-container" id="bookingData">
+        <div class="grid-item">
+            <h2>Kontakt information</h2>
+        </div>
+        <div class="grid-item">
+            <label>Lejer: <input type="text" id="renter"></label>
+        </div>
+        <div class="grid-item">
+            <label>Kontaktperson: <input type="text" id="contactPerson"></label>
+        </div>
+        <div class="grid-item">
+            <label>Mail: <input type="text" id="mail"></label>
+        </div>
+        <div class="grid-item">
+            <label>Tlf: <input type="text" id="phone"></label>
+        </div>
+        <br>
+        <div class="grid-item">
+            <label>Kontakt ASA: <input type="text"></label>
+        </div>
+        <div class="grid-item">
+            <label> Mail: <input type="text"></label>
+        </div>
+        <div class="grid-item">
+            <label> Tlf: <input type="text"></label>
+        </div>
+        <br>
+        <div class="grid-item">
+            <label id="checkbox1">Lys: <input type="checkbox" id="light"></label> <label id="checkbox2">Omkl: <input
+                    type="checkbox" id="lockerroom"></label>
+        </div>
+        <br>
+        <div class="grid-item">
             <label>Bemærkninger: <textarea id="comment"></textarea></label>
+        </div>
     </div>
+    <div class="grid-container" id="dateData">
+        <h2>Booking information</h2>
+        <label>Bane valg: <input placeholder="kunstXmX" id="footballField"></label>
+        <br>
+        <label>Dato: <input type="text" id="date"></label>
+        <label>Start tid: <input type="text" required id="startDate"> </label>
+        <br>
+        <label>Slut tid: <input type="text" required id="endDate"> </label>
     </div>
-  <div class="grid-container" id="dateData">
-      <h2>Booking information</h2>
-      <label>Bane valg: <input placeholder="kunstXmX" id="footballField"></label>
-      <br>
-    <label>Start dato: <input type="datetime-local" required id="startDate"> </label>
-      <br>
-      <label>Slut dato: <input type="datetime-local" required id="endDate"> </label>
-  </div>
     <div class="grid-container" id="priceData">
 
         <div class="grid-item">
@@ -57,12 +61,12 @@
         </div>
         <table class="grid-item">
             <tr>
-            <th>   </th>
-            <th>Banetype</th>
-            <th>Pris</th>
-            <th>Timér</th>
-            <th>Á kr.</th>
-            <th>I alt</th>
+                <th> </th>
+                <th>Banetype</th>
+                <th>Pris</th>
+                <th>Timér</th>
+                <th>Á kr.</th>
+                <th>I alt</th>
             </tr>
             <tr>
                 <td>Pris baneleje</td>
@@ -92,13 +96,13 @@
     </div>
     <br>
     <div class="grid-item">
-          <button onclick="createBooking()">Reserver tid</button>
-          <button>Tilbage</button>
+        <button onclick="createBooking()">Reserver tid</button>
+        <button>Tilbage</button>
     </div>
     <br>
-        <div>
-             <a href="/logout">Log ud</a>
-        </div>
-  </body>
-</html>
+    <div>
+        <a href="/logout">Log ud</a>
+    </div>
+</body>
 
+</html>

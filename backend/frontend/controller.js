@@ -45,9 +45,9 @@ function getBookings(bane) {
 }
 
 function createBooking() {
-
-    const startDate = document.getElementById("startDate").value;
-    const endDate = document.getElementById("endDate").value;
+    const date = document.getElementById("date").value;
+    const startTime = document.getElementById("startDate").value;
+    const endTime = document.getElementById("endDate").value;
     const footballField = document.getElementById("footballField").value;
     const light = document.getElementById("light").checked;
     const lockerRoom = document.getElementById("lockerroom").checked;
@@ -57,34 +57,43 @@ function createBooking() {
     const phone = document.getElementById("phone").value;
     const comment = document.getElementById("comment").value;
 
-    if (startDate != "" && endDate != "" && footballField != "" && renter != "" && contactPerson != "" && (mail != "" || phone != "")) {
-        const data = {
-            startDate : startDate,
-            endDate : endDate,
-            footballField : footballField,
-            light : light,
-            lockerRoom : lockerRoom,
-            renter : renter,
-            contactPerson : contactPerson,
-            mail : mail,
-            phone : phone,
-            comment : comment
-        }
-        
-        fetch('/api/bookings', {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": 'application/json'
+    if (date != "" && startTime != "" && endTime != "" && footballField != "" && renter != "" && contactPerson != "" && (mail != "" || phone != "")) {
+        const timeReqex = /^([01]\d|2[0-3]):?([0-5]\d)$/
+        const dateReqex = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+        if (timeReqex.test(startTime) && timeReqex.test(endTime) && dateReqex.test(date)) {
+            const s = date.split("-");
+            const startDate = new Date(s[2] + "-" + s[1] + "-" + s[0] + "T" + startTime + ":00");
+            const endDate = new Date(s[2] + "-" + s[1] + "-" + s[0] + "T" + endTime + ":00");
+            const data = {
+                startDate: startDate,
+                endDate: endDate,
+                footballField: footballField,
+                light: light,
+                lockerRoom: lockerRoom,
+                renter: renter,
+                contactPerson: contactPerson,
+                mail: mail,
+                phone: phone,
+                comment: comment
             }
-        })
-            .then(resultat => {
-                if (resultat.status >= 400)
-                    throw new Error(resultat.status);
-                else {
-                    return resultat.json();
+
+            fetch('/api/bookings', {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: {
+                    "Content-Type": 'application/json'
                 }
             })
+                .then(resultat => {
+                    if (resultat.status >= 400)
+                        throw new Error(resultat.status);
+                    else {
+                        return resultat.json();
+                    }
+                })
+        } else {
+            console.log("fejl ikke tid")
+        }
     } else {
         console.log("fejl: påkrævende felter mangler");
     }
