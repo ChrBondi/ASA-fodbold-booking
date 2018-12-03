@@ -15,12 +15,17 @@ async function login() {
     const name = document.querySelector('#name');
     const password = document.querySelector('#password');
     const error = document.querySelector('#error');
-    const data = { name: name.value, password: password.value };
+    const data = {
+        name: name.value,
+        password: password.value
+    };
 
     const result = await fetch("/login", {
         method: "POST",
         body: JSON.stringify(data),
-        headers: { 'Content-Type': 'application/json' }
+        headers: {
+            'Content-Type': 'application/json'
+        }
     });
     const answer = await result.json();
     if (answer.ok)
@@ -40,7 +45,9 @@ function getBookings(bane) {
             const template = await fetch('/bookingPerDate.hbs');
             const templateText = await template.text();
             compiledBookings = Handlebars.compile(templateText);
-            document.querySelector('#bookings').innerHTML = compiledBookings({booking});
+            document.querySelector('#bookings').innerHTML = compiledBookings({
+                booking
+            });
         })
 }
 
@@ -78,12 +85,12 @@ function createBooking() {
             }
 
             fetch('/api/bookings', {
-                method: "POST",
-                body: JSON.stringify(data),
-                headers: {
-                    "Content-Type": 'application/json'
-                }
-            })
+                    method: "POST",
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": 'application/json'
+                    }
+                })
                 .then(resultat => {
                     if (resultat.status >= 400)
                         throw new Error(resultat.status);
@@ -99,6 +106,10 @@ function createBooking() {
     }
 }
 
-function toggleBookingForm(){
-
+function toggleBookingForm() {
+    const form = document.getElementById('booking-form');
+    if (form.style.display === 'none')
+        form.style.display = 'grid';
+    else
+        form.style.display = 'none';
 }
