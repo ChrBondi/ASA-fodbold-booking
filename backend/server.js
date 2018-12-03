@@ -6,8 +6,9 @@ const hbs = require('hbs');
 app.use(express.json());
 app.use(express.static(__dirname + '/frontend'));
 app.set('view engine', 'hbs');
-app.set('views', 'templates');
-hbs.registerPartials('templates');
+app.set('views', 'frontend');
+hbs.registerPartials('frontend');
+app.set('views', __dirname + '/frontend', "views");
 
 let mongoose = require('mongoose');
 mongoose.connect('mongodb://admin:admin123@ds026018.mlab.com:26018/asa_fodbold', {useNewUrlParser: true});
@@ -92,7 +93,6 @@ app.post('/api/bookings', function(request, response) {
 
 
 app.listen(8080);
-app.set('views', __dirname + '/templates', "views");
 
 module.exports = app;
 

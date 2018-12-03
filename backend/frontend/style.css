@@ -1,26 +1,31 @@
-
+body {
+    font-family: Arial, sans-serif;
+    background-color: #c80606;
+}
 #loginScreen {
     text-align: center;
 }
+
 h1 {
     grid-column: 1/3;
     text-align: center;
-    font-family: Arial;
 }
+
 label {
     text-align: left;
 
-}​
+}
 
- .grid-container {
-     display: grid;
-     grid-template-columns: auto auto auto auto;
-     font-family: Arial;
- }
+​
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
 
- .grid-item {
-     font-family: Arial;
- }
+}
+
+.grid-item {
+
+}
 
 #bookingData {
     grid-column: auto;
@@ -29,59 +34,65 @@ label {
     padding: 3px;
     padding-left: 40px;
     width: 185px;
-    font-family: Arial
+
 }
 
 #priceData {
-    font-family: Arial;
-   padding-left: 40px;
+    padding-left: 40px;
 }
 
 #dateData {
-    font-family: Arial;
     grid-column: auto;
     display: grid;
     grid-gap: 5px;
     padding: 1px;
     padding-left: 40px;
 }
-table,td,th {
+
+table, td, th {
     border: 2px solid black;
     border-collapse: collapse;
     text-align: center;
     padding: 4px;
-    font-family: Arial
 
 }
+
 .column {
     float: left;
 
 }
+
 .left {
     width: 50%;
 }
+
 .right {
     width: 50%;
 }
 
 button {
     max-width: 90px;
-    font-family: Arial;
-
 
 }
+
 a {
     text-align: right;
     padding-left: 40px;
-    font-family: Arial;
 }
 
-grid-con {
-    display: grid;
-}
-
-header {
+.grid-con {
     display: grid;
     grid-auto-flow: column;
-    grid-template-columns: auto auto;
+    margin: .5em;
+    padding: .5em;
+    background-color: white;
+}
+
+#selectBane {
+    align-self: start;
+    grid-auto-flow: row;
+}
+
+#booking {
+
 }
