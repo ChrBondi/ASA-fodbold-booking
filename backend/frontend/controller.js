@@ -1,5 +1,6 @@
 let compiledDashboard;
-
+const footballFields = ['kunst3m1', 'kunst3m2', 'kunst3m3', 'kunst3m4',
+                        'kunst5m1', 'kunst5m2', 'kunst8m1', 'kunst8m2', 'kunst11m1', 'futsal'];
 onload = async () => {
     const template = await fetch('/dashboard.hbs');
     const templateText = await template.text();
