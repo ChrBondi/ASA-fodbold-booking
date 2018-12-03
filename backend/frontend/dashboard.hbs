@@ -8,15 +8,16 @@
 </head>
 <body>
 <div class="grid-con">
-    <h1>Kunstgræsbanens bookingsystem</h1>
+    <h2>Kunstgræsbanens bookingsystem</h2>
     <a href="/logout">Log ud</a>
 </div>
 
-<div class="grid-con" id="selectBane">
+<div class="grid-con">
     <h2>Vælg bane for at se bookede tider</h2>
+
     <input type="button" value="Ny booking" onclick="toggleBookingForm()">
 
-    <select  onchange="getBookings(this.options[this.selectedIndex].value)">
+    <select  id="selectBane" onchange="getBookings(this.options[this.selectedIndex].value)">
         <option disabled selected value> -- vælg en bane --</option>
         <option value="kunst5m1">5-mands 1</option>
         <option value="kunst5m2">5-mands 2</option>

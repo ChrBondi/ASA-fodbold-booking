@@ -20,11 +20,10 @@ label {
 
 }
 
-​
+
 .grid-container {
     display: grid;
     grid-template-columns: auto auto auto auto;
-
 }
 
 .grid-item {
@@ -86,14 +85,15 @@ a {
 
 .grid-con {
     display: grid;
-    grid-auto-flow: column;
     margin: .5em;
     padding: .5em;
     background-color: white;
-    grid-template-columns: auto auto;
+    grid-template-columns: 90% 10%;
 }
 
 #selectBane {
     align-self: start;
+    grid-column: 1/3;
 }
+
 
