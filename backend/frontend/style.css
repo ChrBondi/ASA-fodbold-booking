@@ -46,7 +46,6 @@ table, td, th {
     border-collapse: collapse;
     text-align: center;
     padding: 4px;
-
 }
 
 .column {
@@ -64,7 +63,6 @@ table, td, th {
 
 button {
     max-width: 90px;
-
 }
 
 a {

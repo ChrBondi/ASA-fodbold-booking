@@ -6,9 +6,9 @@ const hbs = require('hbs');
 app.use(express.json());
 app.use(express.static(__dirname + '/frontend'));
 app.set('view engine', 'hbs');
-app.set('views', 'frontend');
-hbs.registerPartials('frontend/templates');
 app.set('views', __dirname + '/frontend', "views");
+//app.set('views', 'frontend');
+hbs.registerPartials('frontend/templates');
 
 let mongoose = require('mongoose');
 mongoose.connect('mongodb://admin:admin123@ds026018.mlab.com:26018/asa_fodbold', {useNewUrlParser: true});
