@@ -1,10 +1,9 @@
-let compiledBookingPerDate;
+let compiledDashboard;
 
 onload = async () => {
-    const template = await fetch('/bookingPerDate.hbs');
+    const template = await fetch('/dashboard.hbs');
     const templateText = await template.text();
-    compiledBookingPerDate = Handlebars.compile(templateText);
-    console.log(compiledBookingPerDate);
+    compiledDashboard = Handlebars.compile(templateText);
 
     const button = document.querySelector('#button');
     if (button) {
@@ -37,10 +36,11 @@ function getBookings(bane) {
 
     fetch('/api/bookings/' + bane)
         .then(res => res.json())
-        .then(async (bookings) => {
-            console.log(bookings);
-            console.log(compiledBookingPerDate({ bookings }));
-            document.querySelector('#bookings').innerHTML = compiledBookingPerDate({ bookings });
+        .then(async (booking) => {
+            const template = await fetch('/bookingPerDate.hbs');
+            const templateText = await template.text();
+            compiledBookings = Handlebars.compile(templateText);
+            document.querySelector('#bookings').innerHTML = compiledBookings({booking});
         })
 }
 

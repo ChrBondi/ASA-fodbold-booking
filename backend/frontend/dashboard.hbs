@@ -7,14 +7,14 @@
     <script src="controller.js"></script>
 </head>
 <body>
-<div class="header">
+<div class="grid-con">
     <img src="https://www.holdsport.dk/media/W1siZiIsIjIwMTYvMTIvMDcvNDM5Y2F4OWtnbF9hc2EucG5nIl0sWyJwIiwiZW5jb2RlIiwicG5nIl0sWyJwIiwidGh1bWIiLCJ4MTMwIl1d/asa.png?sha=a2aa5cd0ad72678a"
-    class="grid-i">
-    <h1 class="grid-item">Kunstgræsbanens bookingsystem</h1>
+    >
+    <h1>Kunstgræsbanens bookingsystem</h1>
 </div>
 
-<div class="grid-con">
-    <select onchange="getBookings(this.options[this.selectedIndex].value)">
+<div class="grid-con" id="selectBane">
+    <select  onchange="getBookings(this.options[this.selectedIndex].value)">
         <option disabled selected value> -- vælg en bane --</option>
         <option value="kunst5m1">5-mands 1</option>
         <option value="kunst5m2">5-mands 2</option>
