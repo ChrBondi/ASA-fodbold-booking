@@ -1,7 +1,6 @@
 
 class Booking {
-    constructor(date, startTime, endTime, footballField, light, lockerRoom, renter, contactPerson, mail, phone, comment) {
-        this.date = date;
+    constructor(startDate, endDate, footballField, light, lockerRoom, renter, contactPerson, mail, phone, comment) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.footballField = footballField;

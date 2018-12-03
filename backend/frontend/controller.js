@@ -65,6 +65,7 @@ function createBooking() {
     const phone = document.getElementById("phone").value;
     const comment = document.getElementById("comment").value;
 
+    console.log(footballField);
     if (date != "" && startTime != "" && endTime != "" && footballField != "" && renter != "" && contactPerson != "" && (mail != "" || phone != "")) {
         const timeReqex = /^([01]\d|2[0-3]):?([0-5]\d)$/
         const dateReqex = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;

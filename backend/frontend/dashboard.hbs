@@ -19,7 +19,7 @@
 
     <input type="button" value="Ny booking" onclick="toggleBookingForm()">
 
-    <select  onchange="getBookings(this.options[this.selectedIndex].value)">
+    <select onchange="getBookings(this.options[this.selectedIndex].value)" id="footballField">
         <option disabled selected value> -- vælg en bane --</option>
         <option value="kunst5m1">5-mands 1</option>
         <option value="kunst5m2">5-mands 2</option>
@@ -53,16 +53,6 @@
         </div>
         <br>
         <div class="grid-item">
-          <label>Kontakt ASA: <input type="text"></label>
-        </div>
-        <div class="grid-item">
-          <label> Mail: <input type="text"></label>
-        </div>
-        <div class="grid-item">
-          <label> Tlf: <input type="text"></label>
-        </div>
-        <br>
-        <div class="grid-item">
           <label id="checkbox1">Lys: <input type="checkbox" id="light"></label> <label id="checkbox2">Omkl: <input
                     type="checkbox" id="lockerroom"></label>
         </div>
@@ -73,8 +63,6 @@
       </div>
       <div class="grid-container" id="dateData">
         <h2>Booking information</h2>
-        <label>Bane valg: <input placeholder="kunstXmX" id="footballField"></label>
-        <br>
         <label>Dato: <input type="text" id="date"></label>
         <label>Start tid: <input type="text" required id="startDate"> </label>
         <br>
