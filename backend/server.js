@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(express.static(__dirname + '/frontend'));
 app.set('view engine', 'hbs');
 app.set('views', 'frontend');
-hbs.registerPartials('frontend');
+hbs.registerPartials('frontend/templates');
 app.set('views', __dirname + '/frontend', "views");
 
 let mongoose = require('mongoose');
@@ -43,11 +43,14 @@ app.post('/login', function (request, response) {
     }
 });
 
+const options = ['kunst3m1', 'kunst3m2', 'kunst3m3', 'kunst3m4',
+    'kunst5m1', 'kunst5m2', 'kunst8m1', 'kunst8m2', 'kunst11m1', 'futsal'];
+
 app.get('/session', function (request, response) {
     const name = request.session.name;
     // render('') henviser til handlebars.
     if (name) {
-        response.render('dashboard', {name});
+        response.render('dashboard', {options});
     }
     else {
         response.redirect('/');

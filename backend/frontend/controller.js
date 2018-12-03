@@ -37,9 +37,6 @@ async function login() {
 };
 
 function getBookings(bane) {
-    const date1 = new Date('November 28, 2018 12:00:00');
-    const date2 = new Date('November 30, 2018 12:00:00');
-
     fetch('/api/bookings/' + bane)
         .then(res => res.json())
         .then(async (booking) => {
@@ -65,7 +62,6 @@ function createBooking() {
     const phone = document.getElementById("phone").value;
     const comment = document.getElementById("comment").value;
 
-    console.log(footballField);
     if (date != "" && startTime != "" && endTime != "" && footballField != "" && renter != "" && contactPerson != "" && (mail != "" || phone != "")) {
         const timeReqex = /^([01]\d|2[0-3]):?([0-5]\d)$/
         const dateReqex = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
@@ -87,12 +83,12 @@ function createBooking() {
             }
 
             fetch('/api/bookings', {
-                    method: "POST",
-                    body: JSON.stringify(data),
-                    headers: {
-                        "Content-Type": 'application/json'
-                    }
-                })
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: {
+                    "Content-Type": 'application/json'
+                }
+            })
                 .then(resultat => {
                     if (resultat.status >= 400)
                         throw new Error(resultat.status);
