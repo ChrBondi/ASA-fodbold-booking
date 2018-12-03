@@ -1,8 +1,8 @@
 
 class Booking {
-    constructor(startDate, endDate, footballField, light, lockerRoom, renter, contactPerson, mail, phone, comment) {
-        this.startDate = startDate;
-        this.endDate = endDate;
+    constructor(startTime, endTime, footballField, light, lockerRoom, renter, contactPerson, mail, phone, comment) {
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.footballField = footballField;
         this.light = light;
         this.lockerRoom = lockerRoom;
@@ -13,9 +13,10 @@ class Booking {
         this.comment = comment;
     }
 
-    getPrice() {
-        return 10;
-    }
+
+}
+function getPrice(){
+
 }
 
 const priceList = { kunst11m: 650, kunst8m: 325, kunst5m: 200, kunst3m: 150, kunstFutsall: 150 };
