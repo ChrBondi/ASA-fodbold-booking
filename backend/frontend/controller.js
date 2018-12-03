@@ -40,6 +40,7 @@ function getBookings(bane) {
     fetch('/api/bookings/' + bane)
         .then(res => res.json())
         .then(async (booking) => {
+            console.log(booking);
             const template = await fetch('/bookingPerDate.hbs');
             const templateText = await template.text();
             compiledBookings = Handlebars.compile(templateText);
