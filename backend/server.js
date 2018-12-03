@@ -54,10 +54,6 @@ app.get('/session', function (request, response) {
     }
 });
 
-app.get('/booking', function(request, response){
-    response.render('bookingForm');
-});
-
 app.get('/logout', function (request, response) {
     request.session.destroy(function (err) {
         if (err) {
@@ -97,7 +93,6 @@ app.delete('api/bookings', function(request, response) {
     }).exec()
     .then(v => response.json(v)); 
 });
-
 
 app.listen(8080);
 
