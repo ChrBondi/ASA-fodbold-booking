@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="style.css"/>
-    <script src="handlebars-v4.0.12.js"></script>
-    <script src="controller.js"></script>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="handlebars-v4.0.12.js"></script>
+  <script src="controller.js"></script>
 </head>
+
 <body>
 <div class="grid-con">
-    <h2>Kunstgræsbanens bookingsystem</h2>
+    <h1>Kunstgræsbanens bookingsystem</h1>
     <a href="/logout">Log ud</a>
-</div>
+  </div>
 
-<div class="grid-con">
+<div class="grid-con" id="selectBane">
     <h2>Vælg bane for at se bookede tider</h2>
 
     <input type="button" value="Ny booking" onclick="toggleBookingForm()">
 
-    <select  id="selectBane" onchange="getBookings(this.options[this.selectedIndex].value)">
+    <select  onchange="getBookings(this.options[this.selectedIndex].value)">
         <option disabled selected value> -- vælg en bane --</option>
         <option value="kunst5m1">5-mands 1</option>
         <option value="kunst5m2">5-mands 2</option>
@@ -29,10 +31,108 @@
     </select>
 
     <div id="bookings">
-        {{#each booking}}
-            <p>Start tid: {{this.startDate}} Slut tid: {{this.endDate}}</p>
-        {{/each}}
+      {{#each booking}}
+      <p>Start tid: {{this.startDate}} Slut tid: {{this.endDate}}</p>
+      {{/each}}
     </div>
-</div>
+
+    <form id="booking-form" action="">
+      <h1>Booking</h1>
+      <div class="grid-container" id="bookingData">
+        <div class="grid-item">
+          <h2>Kontakt information</h2>
+        </div>
+        <div class="grid-item">
+          <label>Lejer: <input type="text" id="renter"></label>
+        </div>
+        <div class="grid-item">
+          <label>Kontaktperson: <input type="text" id="contactPerson"></label>
+        </div>
+        <div class="grid-item">
+          <label>Mail: <input type="text" id="mail"></label>
+        </div>
+        <div class="grid-item">
+          <label>Tlf: <input type="text" id="phone"></label>
+        </div>
+        <br>
+        <div class="grid-item">
+          <label>Kontakt ASA: <input type="text"></label>
+        </div>
+        <div class="grid-item">
+          <label> Mail: <input type="text"></label>
+        </div>
+        <div class="grid-item">
+          <label> Tlf: <input type="text"></label>
+        </div>
+        <br>
+        <div class="grid-item">
+          <label id="checkbox1">Lys: <input type="checkbox" id="light"></label> <label id="checkbox2">Omkl: <input
+                    type="checkbox" id="lockerroom"></label>
+        </div>
+        <br>
+        <div class="grid-item">
+          <label>Bemærkninger: <textarea id="comment"></textarea></label>
+        </div>
+      </div>
+      <div class="grid-container" id="dateData">
+        <h2>Booking information</h2>
+        <label>Bane valg: <input placeholder="kunstXmX" id="footballField"></label>
+        <br>
+        <label>Dato: <input type="text" id="date"></label>
+        <label>Start tid: <input type="text" required id="startDate"> </label>
+        <br>
+        <label>Slut tid: <input type="text" required id="endDate"> </label>
+      </div>
+      <div class="grid-container" id="priceData">
+
+        <div class="grid-item">
+          <h2>Pris oversigt</h2>
+        </div>
+        <table class="grid-item">
+          <tr>
+            <th> </th>
+            <th>Banetype</th>
+            <th>Pris</th>
+            <th>Timér</th>
+            <th>Á kr.</th>
+            <th>I alt</th>
+          </tr>
+          <tr>
+            <td>Pris baneleje</td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>Pris Lys</td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>Pris i alt</td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+        </table>
+      </div>
+      <br>
+      <div class="grid-item">
+        <button onclick="createBooking()">Reserver tid</button>
+        <button>Tilbage</button>
+      </div>
+      <br>
+      <div>
+        <a href="/logout">Log ud</a>
+      </div>
+    </form>
+  </div>
 
 </body>
