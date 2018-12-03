@@ -6,7 +6,7 @@ onload = async () => {
     compiledDashboard = Handlebars.compile(templateText);
 
     const button = document.querySelector('#button');
-    if(button){
+    if (button) {
         button.onclick = login;
     }
 };
@@ -15,12 +15,12 @@ async function login() {
     const name = document.querySelector('#name');
     const password = document.querySelector('#password');
     const error = document.querySelector('#error');
-    const data = {name: name.value, password: password.value};
+    const data = { name: name.value, password: password.value };
 
     const result = await fetch("/login", {
         method: "POST",
         body: JSON.stringify(data),
-        headers: {'Content-Type': 'application/json'}
+        headers: { 'Content-Type': 'application/json' }
     });
     const answer = await result.json();
     if (answer.ok)
@@ -30,7 +30,7 @@ async function login() {
     }
 };
 
-function getBookings(bane){
+function getBookings(bane) {
     const date1 = new Date('November 28, 2018 12:00:00');
     const date2 = new Date('November 30, 2018 12:00:00');
 
@@ -45,33 +45,58 @@ function getBookings(bane){
 }
 
 function createBooking() {
-    let data = {
-        startDate : document.getElementById("startDate").value,
-        endDate : document.getElementById("endDate").value,
-        footballField : document.getElementById("footballField").value,
-        light : document.getElementById("light").checked,
-        lockerRoom : document.getElementById("lockerroom").checked,
-        renter : document.getElementById("renter").value,
-        contactPerson : document.getElementById("contactPerson").value,
-        mail : document.getElementById("mail").value,
-        phone : document.getElementById("phone").value,
-        comment : document.getElementById("comment").value 
-    };
+    const date = document.getElementById("date").value;
+    const startTime = document.getElementById("startDate").value;
+    const endTime = document.getElementById("endDate").value;
+    const footballField = document.getElementById("footballField").value;
+    const light = document.getElementById("light").checked;
+    const lockerRoom = document.getElementById("lockerroom").checked;
+    const renter = document.getElementById("renter").value;
+    const contactPerson = document.getElementById("contactPerson").value;
+    const mail = document.getElementById("mail").value;
+    const phone = document.getElementById("phone").value;
+    const comment = document.getElementById("comment").value;
 
-    fetch('/api/bookings', {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-            "Content-Type": 'application/json'
+    if (date != "" && startTime != "" && endTime != "" && footballField != "" && renter != "" && contactPerson != "" && (mail != "" || phone != "")) {
+        const timeReqex = /^([01]\d|2[0-3]):?([0-5]\d)$/
+        const dateReqex = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+        if (timeReqex.test(startTime) && timeReqex.test(endTime) && dateReqex.test(date)) {
+            const s = date.split("-");
+            const startDate = new Date(s[2] + "-" + s[1] + "-" + s[0] + "T" + startTime + ":00");
+            const endDate = new Date(s[2] + "-" + s[1] + "-" + s[0] + "T" + endTime + ":00");
+            const data = {
+                startDate: startDate,
+                endDate: endDate,
+                footballField: footballField,
+                light: light,
+                lockerRoom: lockerRoom,
+                renter: renter,
+                contactPerson: contactPerson,
+                mail: mail,
+                phone: phone,
+                comment: comment
+            }
+
+            fetch('/api/bookings', {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: {
+                    "Content-Type": 'application/json'
+                }
+            })
+                .then(resultat => {
+                    if (resultat.status >= 400)
+                        throw new Error(resultat.status);
+                    else {
+                        return resultat.json();
+                    }
+                })
+        } else {
+            console.log("fejl ikke tid")
         }
-    })
-    .then(resultat => {
-        if (resultat.status >= 400)
-            throw new Error(resultat.status);
-        else {
-            return resultat.json();
-        }
-    })
+    } else {
+        console.log("fejl: påkrævende felter mangler");
+    }
 }
 
 function toggleBookingForm(){
