@@ -73,3 +73,7 @@ function createBooking() {
         }
     })
 }
+
+function toggleBookingForm(){
+
+}

@@ -8,12 +8,14 @@
 </head>
 <body>
 <div class="grid-con">
-    <img src="https://www.holdsport.dk/media/W1siZiIsIjIwMTYvMTIvMDcvNDM5Y2F4OWtnbF9hc2EucG5nIl0sWyJwIiwiZW5jb2RlIiwicG5nIl0sWyJwIiwidGh1bWIiLCJ4MTMwIl1d/asa.png?sha=a2aa5cd0ad72678a"
-    >
     <h1>Kunstgræsbanens bookingsystem</h1>
+    <a href="/logout">Log ud</a>
 </div>
 
 <div class="grid-con" id="selectBane">
+    <h2>Vælg bane for at se bookede tider</h2>
+    <input type="button" value="Ny booking" onclick="toggleBookingForm()">
+
     <select  onchange="getBookings(this.options[this.selectedIndex].value)">
         <option disabled selected value> -- vælg en bane --</option>
         <option value="kunst5m1">5-mands 1</option>
@@ -24,10 +26,12 @@
         <option value="kunst3m4">3-mands 4</option>
         <option value="futsal">Futsal</option>
     </select>
+
     <div id="bookings">
         {{#each booking}}
             <p>Start tid: {{this.startDate}} Slut tid: {{this.endDate}}</p>
         {{/each}}
     </div>
 </div>
+
 </body>

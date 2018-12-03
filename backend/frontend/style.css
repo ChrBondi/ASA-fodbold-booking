@@ -11,6 +11,10 @@ h1 {
     text-align: center;
 }
 
+h2 {
+    text-align: center;
+}
+
 label {
     text-align: left;
 
@@ -86,13 +90,10 @@ a {
     margin: .5em;
     padding: .5em;
     background-color: white;
+    grid-template-columns: auto auto;
 }
 
 #selectBane {
     align-self: start;
-    grid-auto-flow: row;
 }
 
-#booking {
-
-}
