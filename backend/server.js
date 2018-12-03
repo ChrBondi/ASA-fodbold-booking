@@ -90,6 +90,13 @@ app.post('/api/bookings', function(request, response) {
     })
 })
 
+app.delete('api/bookings', function(request, response) {
+    booking.findOneAndDelete({
+        _id: request.params.id
+    }).exec()
+    .then(v => response.json(v)); 
+});
+
 
 app.listen(8080);
 app.set('views', __dirname + '/templates', "views");
