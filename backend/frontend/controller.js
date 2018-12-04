@@ -46,8 +46,26 @@ function getBookings(bane) {
             document.querySelector('#bookings').innerHTML = compiledBookings({
                 booking
             });
-        })
+            loadCalendar(booking);
+        });
 }
+
+async function loadCalendar(booking) {
+    const m1 = {bookings: booking}
+    const m2 = {bookings: ['hey', 'lol']}
+    const fields = [m1, m2];
+    console.log('bok')
+    console.log(booking);
+    console.log(fields)
+    const template = await fetch('/calendar.hbs');
+    const templateText = await template.text();
+    const compiledCalendar = Handlebars.compile(templateText);
+    document.getElementById('calendar').innerHTML = compiledCalendar({
+        fields,
+        booking
+    });
+}
+
 
 function createBooking() {
     const date = document.getElementById("date").value;
@@ -83,12 +101,12 @@ function createBooking() {
             }
 
             fetch('/api/bookings', {
-                method: "POST",
-                body: JSON.stringify(data),
-                headers: {
-                    "Content-Type": 'application/json'
-                }
-            })
+                    method: "POST",
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": 'application/json'
+                    }
+                })
                 .then(resultat => {
                     if (resultat.status >= 400)
                         throw new Error(resultat.status);
