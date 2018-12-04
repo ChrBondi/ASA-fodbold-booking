@@ -16,6 +16,16 @@ onload = async () => {
     getDays(new Date());
 };
 
+    Handlebars.registerHelper('bookingDate1', date => {
+        startDate = new Date(date);
+        return "Dato: "+startDate.getDate()+"-"+startDate.getMonth()+"      kl: "+startDate.getHours()+":"+startDate.getMinutes()+"-";
+    });
+
+    Handlebars.registerHelper('bookingDate2', date => {
+       endDate = new Date(date);
+        return endDate.getHours()+":"+endDate.getMinutes();
+    });
+
 async function login() {
     const name = document.querySelector('#name');
     const password = document.querySelector('#password');
