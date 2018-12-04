@@ -50,19 +50,16 @@ function getBookings(bane) {
         });
 }
 
-async function loadCalendar(booking) {
-    const m1 = {bookings: booking}
-    const m2 = {bookings: ['hey', 'lol']}
-    const fields = [m1, m2];
-    console.log('bok')
-    console.log(booking);
-    console.log(fields)
+async function loadCalendar() {
+    const a = await fetch('/api/bookingsCalender/2018-11-29T00:00:00');
+    console.log(a)
+    const fields = await a.json();
     const template = await fetch('/calendar.hbs');
     const templateText = await template.text();
     const compiledCalendar = Handlebars.compile(templateText);
+    console.log(fields)
     document.getElementById('calendar').innerHTML = compiledCalendar({
-        fields,
-        booking
+        fields
     });
 }
 
