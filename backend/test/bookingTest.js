@@ -4,7 +4,7 @@ const request = require('supertest');
 
 const should = require('should');
 
-let bookingTest1 = new Booking("19:00","20:15","kunst11m",true,false,"Fede Fredes Fodboldklub", "Freddy G", "FredeFup@fredemail.frede", "12344321", "Ingen kommentar")
+let bookingTest1 = new Booking("19:00","20:15","kunst11m",true,true,"Fede Fredes Fodboldklub", "Freddy G", "FredeFup@fredemail.frede", "12344321", "Ingen kommentar")
 describe('booking-test', function () {
     it("price-test1", function () {
         booking.price.should.be.equal(1000); //De andre tests skal have ændret sine prices
