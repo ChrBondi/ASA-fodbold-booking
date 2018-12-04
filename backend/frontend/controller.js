@@ -13,6 +13,7 @@ onload = async () => {
     Handlebars.registerHelper('formatBooking', booking => {
         return `${booking.startDate}`;
     });
+    getDays(new Date());
 };
 
 async function login() {
@@ -53,20 +54,61 @@ function getBookings(bane) {
             loadCalendar(booking);
         });
 }
-
+let compiledCalendar;
+let days;
 async function loadCalendar() {
-    const a = await fetch('/api/bookingsCalender/2018-11-29T00:00:00');
-    console.log(a)
-    const fields = await a.json();
+
     const template = await fetch('/calendar.hbs');
     const templateText = await template.text();
-    const compiledCalendar = Handlebars.compile(templateText);
-    console.log(fields)
-    document.getElementById('calendar').innerHTML = compiledCalendar({
-        fields
+    compiledCalendar = Handlebars.compile(templateText);
+    days = getDays(new Date());
+    document.getElementById('calendar').innerHTML = compiledCalendar({days
     });
 }
 
+function getDays(date) {
+    let days = [];
+
+    let tempDate = new Date(date);
+    tempDate.setDate(1);
+    let weekDay = tempDate.getDay() - 1;
+    if (weekDay < 0) {
+        weekDay = 6
+    }
+
+    for (let i = 0; i < weekDay; i++) {
+        days.push(" ");
+    }
+
+    const daysInM = daysInMonth(date.getMonth()+1, date.getFullYear());
+    for (let i = 1; i <= daysInM; i++) {
+        days.push(`${i}`);
+    }
+
+    console.log(days);
+    return days;
+}
+
+function daysInMonth(month, year) {
+    return new Date(year, month, 0).getDate();
+}
+
+async function bookingThisDay(day){
+    const month = document.body.querySelector('#month').value;
+    const year = document.body.querySelector('#year').innerHTML;
+    console.log()
+    console.log(day + " " + day.length + " " + typeof day);
+
+    if (day.toString().length < 2) day = '0'+ day;
+    console.log(day + " " +day.length);
+
+    const bookings = await fetch(`/api/bookingsCalender/${year}-${month}-${day}T00:00:00`);
+    console.log(bookings);
+    const fields = await bookings.json();
+    document.getElementById('calendar').innerHTML = compiledCalendar({fields, days
+    });
+    console.log(day);
+}
 
 function createBooking() {
     const date = document.getElementById("date").value;
@@ -102,12 +144,12 @@ function createBooking() {
             }
 
             fetch('/api/bookings', {
-                    method: "POST",
-                    body: JSON.stringify(data),
-                    headers: {
-                        "Content-Type": 'application/json'
-                    }
-                })
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: {
+                    "Content-Type": 'application/json'
+                }
+            })
                 .then(resultat => {
                     if (resultat.status >= 400)
                         throw new Error(resultat.status);
