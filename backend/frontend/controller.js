@@ -1,10 +1,9 @@
 let compiledDashboard;
-const footballFields = ['kunst3m1', 'kunst3m2', 'kunst3m3', 'kunst3m4',
-                        'kunst5m1', 'kunst5m2', 'kunst8m1', 'kunst8m2', 'kunst11m1', 'futsal'];
+
 onload = async () => {
-    const template = await fetch('/dashboard.hbs');
-    const templateText = await template.text();
-    compiledDashboard = Handlebars.compile(templateText);
+    //const template = await fetch('/dashboard.hbs');
+    //const templateText = await template.text();
+    //compiledDashboard = Handlebars.compile(templateText);
 
     const button = document.querySelector('#button');
     if (button) {
@@ -43,7 +42,7 @@ function getBookings(bane) {
             console.log(booking);
             const template = await fetch('/bookingPerDate.hbs');
             const templateText = await template.text();
-            compiledBookings = Handlebars.compile(templateText);
+            const compiledBookings = Handlebars.compile(templateText);
             document.querySelector('#bookings').innerHTML = compiledBookings({
                 booking
             });

@@ -21,7 +21,9 @@
 
     <select id="selectBane" onchange="getBookings(this.options[this.selectedIndex].value)" id="footballField">
         <option disabled selected value> -- vælg en bane --</option>
-        {{>options}}
+        {{#each options}}
+            <option value={{this}}>{{this}}</option>
+        {{/each}}
     </select>
 
     <div id="bookings">
