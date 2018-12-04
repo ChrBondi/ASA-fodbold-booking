@@ -118,21 +118,21 @@ label {
 #ny-booking-label {
     grid-column: 1/6;
     margin: auto;
-
+}
 /* CALENDAR STYLES START HERE */
 
-#calendar {
+/* #calendar {
     max-width: 50%;
-}
+}*/
 
 ul {list-style-type: none;}
 body {font-family: Verdana, sans-serif;}
 
 /* Month header */
 .month {
-    padding: 70px 25px;
-    width: 100%;
-    background: #1abc9c;
+    /*padding: 70px 25px;
+    width: 100%; */
+    background: #AAAAAA;
     text-align: center;
 }
 
@@ -152,13 +152,13 @@ body {font-family: Verdana, sans-serif;}
 /* Previous button inside month header */
 .month .prev {
     float: left;
-    padding-top: 10px;
+    padding: 10px;
 }
 
 /* Next button */
 .month .next {
     float: right;
-    padding-top: 10px;
+    padding: 10px;
 }
 
 /* Weekdays (Mon-Sun) */
@@ -195,6 +195,6 @@ body {font-family: Verdana, sans-serif;}
 /* Highlight the "current" day */
 .days li .active {
     padding: 5px;
-    background: #1abc9c;
+    background: #AAAAAA;
     color: white !important
 }
