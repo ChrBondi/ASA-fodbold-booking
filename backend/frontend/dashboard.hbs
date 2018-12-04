@@ -74,7 +74,7 @@
         <div id="dateData">
             <h2>Booking information</h2>
 
-            <select id="selectBane" id="footballField">
+            <select id="footballField">
                 <option disabled selected value> -- vælg en bane --</option>
                 {{#each options}}
                     <option value={{this}}>{{this}}</option>
@@ -95,8 +95,8 @@
         <div id="bookingData">
             <h2>Kontakt information</h2>
 
-            <label>Lejer: <input type="text" id="renter"></label>
-            <label>Kontaktperson: <input type="text" id="contactPerson"></label>
+            <label>Lejer: <input type="text" required id="renter"></label>
+            <label>Kontaktperson: <input type="text" required id="contactPerson"></label>
             <label>Mail: <input type="text" id="mail"></label>
             <label>Tlf: <input type="text" id="phone"></label>
             <br>

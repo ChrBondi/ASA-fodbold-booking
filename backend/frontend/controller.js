@@ -16,15 +16,15 @@ onload = async () => {
     getDays(new Date());
 };
 
-    Handlebars.registerHelper('bookingDate1', date => {
-        startDate = new Date(date);
-        return "Dato: "+startDate.getDate()+"-"+startDate.getMonth()+"      kl: "+startDate.getHours()+":"+startDate.getMinutes()+"-";
-    });
+Handlebars.registerHelper('bookingDate1', date => {
+    startDate = new Date(date);
+    return "Dato: " + startDate.getDate() + "-" + startDate.getMonth() + "      kl: " + startDate.getHours() + ":" + startDate.getMinutes() + "-";
+});
 
-    Handlebars.registerHelper('bookingDate2', date => {
-       endDate = new Date(date);
-        return endDate.getHours()+":"+endDate.getMinutes();
-    });
+Handlebars.registerHelper('bookingDate2', date => {
+    endDate = new Date(date);
+    return endDate.getHours() + ":" + endDate.getMinutes();
+});
 
 async function login() {
     const name = document.querySelector('#name');
@@ -72,7 +72,8 @@ async function loadCalendar() {
     const templateText = await template.text();
     compiledCalendar = Handlebars.compile(templateText);
     days = getDays(new Date());
-    document.getElementById('calendar').innerHTML = compiledCalendar({days
+    document.getElementById('calendar').innerHTML = compiledCalendar({
+        days
     });
 }
 
@@ -90,7 +91,7 @@ function getDays(date) {
         days.push(" ");
     }
 
-    const daysInM = daysInMonth(date.getMonth()+1, date.getFullYear());
+    const daysInM = daysInMonth(date.getMonth() + 1, date.getFullYear());
     for (let i = 1; i <= daysInM; i++) {
         days.push(`${i}`);
     }
@@ -103,19 +104,20 @@ function daysInMonth(month, year) {
     return new Date(year, month, 0).getDate();
 }
 
-async function bookingThisDay(day){
+async function bookingThisDay(day) {
     const month = document.body.querySelector('#month').value;
     const year = document.body.querySelector('#year').innerHTML;
     console.log()
     console.log(day + " " + day.length + " " + typeof day);
 
-    if (day.toString().length < 2) day = '0'+ day;
-    console.log(day + " " +day.length);
+    if (day.toString().length < 2) day = '0' + day;
+    console.log(day + " " + day.length);
 
     const bookings = await fetch(`/api/bookingsCalender/${year}-${month}-${day}T00:00:00`);
     console.log(bookings);
     const fields = await bookings.json();
-    document.getElementById('calendar').innerHTML = compiledCalendar({fields, days
+    document.getElementById('calendar').innerHTML = compiledCalendar({
+        fields, days
     });
     console.log(day);
 }
@@ -126,7 +128,7 @@ function createBooking() {
     const endTime = document.getElementById("endDate").value;
     const footballField = document.getElementById("footballField").value;
     const light = document.getElementById("light").checked;
-    const lockerRoom = document.getElementById("lockerroom").checked;
+    const lockerRoom = document.getElementById("lockerRoom").checked;
     const renter = document.getElementById("renter").value;
     const contactPerson = document.getElementById("contactPerson").value;
     const mail = document.getElementById("mail").value;
@@ -138,8 +140,16 @@ function createBooking() {
         const dateReqex = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
         if (timeReqex.test(startTime) && timeReqex.test(endTime) && dateReqex.test(date)) {
             const s = date.split("-");
-            const startDate = new Date(s[2] + "-" + s[1] + "-" + s[0] + "T" + startTime + ":00");
-            const endDate = new Date(s[2] + "-" + s[1] + "-" + s[0] + "T" + endTime + ":00");
+            const st = startTime.split(":")
+            const et = endTime.split(":");
+            const startDate = new Date();
+            startDate.setFullYear(s[2], s[1] - 1, s[0]);
+            startDate.setHours(st[0]);
+            startDate.setMinutes(st[1], 0, 0);
+            const endDate = new Date();
+            endDate.setFullYear(s[2], s[1] - 1, s[0]);
+            endDate.setHours(et[0]);
+            endDate.setMinutes(et[1], 0, 0);
             const data = {
                 startDate: startDate,
                 endDate: endDate,
