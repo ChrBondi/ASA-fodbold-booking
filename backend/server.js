@@ -19,16 +19,16 @@ app.use(morgan('tiny'));
 app.use(session({secret: 'secret', saveUninitialized: true, resave: true}));
 
 let bookingSchema = new mongoose.Schema({
-    startDate : Date,
-    endDate : Date,
-    footballField : String,
-    light : Boolean,
-    lockerRoom : Boolean,
-    renter : String,
-    contatctPerson : String,
-    mail : String,
+    startDate: Date,
+    endDate: Date,
+    footballField: String,
+    light: Boolean,
+    lockerRoom: Boolean,
+    renter: String,
+    contatctPerson: String,
+    mail: String,
     phone: String,
-    comment : String
+    comment: String
 });
 
 let booking = mongoose.model('Bookinger', bookingSchema);
@@ -45,6 +45,28 @@ app.post('/login', function (request, response) {
 
 const options = ['kunst3m1', 'kunst3m2', 'kunst3m3', 'kunst3m4',
     'kunst5m1', 'kunst5m2', 'kunst8m1', 'kunst8m2', 'kunst11m1', 'futsal'];
+
+/*
+dateformat i param: '1995-12-17T00:00:00'
+ */
+app.get('/api/bookingsCalender/:date', function (request, response) {
+    const start = new Date(request.params.date);
+    const end = new Date(start);
+    end.setHours(23);
+
+    booking.find().where({startDate: {$gte: start, $lt: end}})
+        .then(result => {
+            let object = {};
+            options.forEach(option => {
+                object[option] = [];
+
+            });
+            result.forEach(booking => {
+                object[booking.footballField].push(booking);
+            });
+            response.json(object);
+        })
+});
 
 app.get('/session', function (request, response) {
     const name = request.session.name;
@@ -68,33 +90,33 @@ app.get('/logout', function (request, response) {
     });
 });
 
-app.get('/api/bookings/:name', function(request, response) {
+app.get('/api/bookings/:name', function (request, response) {
     booking.find({footballField: request.params.name})
-    .then(result => response.json(result))
+        .then(result => response.json(result))
 });
 
-app.post('/api/bookings', function(request, response) {
+app.post('/api/bookings', function (request, response) {
     booking.create({
-        startDate : request.body.startDate,
-        endDate : request.body.endDate,
-        footballField : request.body.footballField,
-        light : request.body.light,
-        lockerRoom : request.body.lockerRoom,
-        renter : request.body.renter,
-        contactPerson : request.body.contactPerson,
-        mail : request.body.mail,
-        phone : request.body.phone,
-        comment : request.body.comment
+        startDate: request.body.startDate,
+        endDate: request.body.endDate,
+        footballField: request.body.footballField,
+        light: request.body.light,
+        lockerRoom: request.body.lockerRoom,
+        renter: request.body.renter,
+        contactPerson: request.body.contactPerson,
+        mail: request.body.mail,
+        phone: request.body.phone,
+        comment: request.body.comment
     }).then(res => {
         response.json(res);
     })
 })
 
-app.delete('api/bookings', function(request, response) {
+app.delete('api/bookings', function (request, response) {
     booking.findOneAndDelete({
         _id: request.params.id
     }).exec()
-    .then(v => response.json(v)); 
+        .then(v => response.json(v));
 });
 
 app.listen(8080);
