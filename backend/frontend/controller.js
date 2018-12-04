@@ -9,6 +9,10 @@ onload = async () => {
     if (button) {
         button.onclick = login;
     }
+
+    Handlebars.registerHelper('formatBooking', booking => {
+        return `${booking.startDate}`;
+    });
 };
 
 async function login() {

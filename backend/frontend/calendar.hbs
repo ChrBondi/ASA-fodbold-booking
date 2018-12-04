@@ -36,10 +36,10 @@
 <div style="display:flex;">
   {{#each fields}}
   <ul>
-    <li><b>{{this}}</b></li>
+    <li><b>{{@key}}</b></li>
     {{#each this}}
     <li>
-        {{ this }}
+        {{formatBooking this}}
     </li>
     {{/each}}
   </ul>
