@@ -1,4 +1,5 @@
 let compiledDashboard;
+let bookingsList;
 
 onload = async () => {
     //const template = await fetch('/dashboard.hbs');
@@ -18,7 +19,7 @@ onload = async () => {
 
 Handlebars.registerHelper('bookingDate1', date => {
     startDate = new Date(date);
-    return "Dato: " + startDate.getDate() + "-" + startDate.getMonth() + "      kl: " + startDate.getHours() + ":" + startDate.getMinutes() + "-";
+    return "Dato: " + startDate.getDate() + "-" + (startDate.getMonth() + 1) + "      kl: " + startDate.getHours() + ":" + startDate.getMinutes() + "-";
 });
 
 Handlebars.registerHelper('bookingDate2', date => {
@@ -54,6 +55,7 @@ function getBookings(bane) {
     fetch('/api/bookings/' + bane)
         .then(res => res.json())
         .then(async (booking) => {
+            bookingsList = booking;
             console.log(booking);
             const template = await fetch('/bookingPerDate.hbs');
             const templateText = await template.text();
@@ -144,12 +146,10 @@ function createBooking() {
             const et = endTime.split(":");
             const startDate = new Date();
             startDate.setFullYear(s[2], s[1] - 1, s[0]);
-            startDate.setHours(st[0]);
-            startDate.setMinutes(st[1], 0, 0);
+            startDate.setHours(st[0], st[1], 0, 0);
             const endDate = new Date();
             endDate.setFullYear(s[2], s[1] - 1, s[0]);
-            endDate.setHours(et[0]);
-            endDate.setMinutes(et[1], 0, 0);
+            endDate.setHours(et[0], et[1], 0, 0);
             const data = {
                 startDate: startDate,
                 endDate: endDate,
@@ -192,3 +192,62 @@ function toggleBookingForm() {
     else
         form.style.display = 'none';
 }
+
+function information(id) {
+    const booking = bookingsList.find(book => book._id === id);
+    const startDate = new Date(booking.startDate);
+    const endDate = new Date(booking.endDate);
+    document.getElementById("datoInf").innerHTML = "Dato: " + (startDate.getDate()) + "-" + (startDate.getMonth() + 1);
+    document.getElementById("startTimeInf").innerHTML = "Start tid: " + startDate.getHours() + ":" + startDate.getMinutes();
+    document.getElementById("endTimeInf").innerHTML = "Slut tid: " + endDate.getHours() + ":" + endDate.getMinutes();
+    document.getElementById("renterInf").innerHTML = "Lejer: " + booking.renter;
+    document.getElementById("contactPersonInf").innerHTML = "Kontaktperson: " + booking.contactPerson;
+    document.getElementById("mailInf").innerHTML = "Mail: " + booking.mail;
+    document.getElementById("phoneInf").innerHTML = "Tlf: " + booking.phone;
+    document.getElementById("commentsInf").innerHTML = "Bemærkninger: " + booking.comment;
+    let lightS;
+    if (booking.light)
+        lightS = "Ja"
+    else
+        lightS = "Nej"
+
+    document.getElementById("lightInf").innerHTML = "Lys: " + lightS;
+    let lockerRoomS;
+    if (booking.lockerRoom)
+        lockerRoomS = "Ja"
+    else
+        lockerRoomS = "Nej"
+
+    document.getElementById("lockerRoomInf").innerHTML = "Omkl: " + lockerRoomS;
+
+    const btn = document.getElementById("deleteBtn");
+    btn.onclick = function () { deleteBooking(id) };
+}
+
+function deleteBooking(id) {
+    fetch('api/bookings/' + id, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(resultat => {
+            if (resultat.status >= 400)
+                throw new Error(resultat.status);
+            else
+                document.getElementById("datoInf").innerHTML = "Dato:";
+                document.getElementById("startTimeInf").innerHTML = "Start tid:";
+                document.getElementById("endTimeInf").innerHTML = "Slut tid:";
+                document.getElementById("renterInf").innerHTML = "Lejer:";
+                document.getElementById("contactPersonInf").innerHTML = "Kontaktperson:";
+                document.getElementById("mailInf").innerHTML = "Mail:";
+                document.getElementById("phoneInf").innerHTML = "Tlf:";
+                document.getElementById("commentsInf").innerHTML = "Bemærkninger:";
+                document.getElementById("lightInf").innerHTML = "Lys:";
+                document.getElementById("lockerRoomInf").innerHTML = "Omkl:" ;
+                const p = document.getElementById(id);
+                p.parentNode.removeChild(p);
+                return resultat.json();
+        })
+        .catch(fejl => console.log('Fejl: ' + fejl));
+};
