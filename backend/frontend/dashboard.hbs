@@ -44,31 +44,34 @@
                 <th>Kontakt information</th>
             </tr>
             <tr>
-                <td>Dato: XXX</td>
-                <td>Lejer: XXX</td>
+                <td id="datoInf">Dato:</td>
+                <td id="renterInf">Lejer:</td>
             </tr>
             <tr>
-                <td>Start tid: XXX</td>
-                <td>Kontaktperson: XXX</td>
+                <td id="startTimeInf">Start tid:</td>
+                <td id="contactPersonInf">Kontaktperson:</td>
             </tr>
             <tr>
-                <td>Slut tid: XXX</td>
-                <td>Mail: XXX</td>
+                <td id="endTimeInf">Slut tid:</td>
+                <td id="mailInf">Mail:</td>
             </tr>
             <tr>
-                <td>Lys: XXX</td>
-                <td>Tlf: XXX</td>
+                <td id="lightInf">Lys:</td>
+                <td id="phoneInf">Tlf:</td>
             </tr>
             <tr>
-                <td>Omkl: XXX</td>
-                <td>Bemærkninger: XXX</td>
+                <td id="lockerRoomInf">Omkl:</td>
+                <td id="commentsInf">Bemærkninger:</td>
+            </tr>
+            <tr>
+                <button id="deleteBtn">Slet</button>
             </tr>
         </table>
     </div>
 </div>
 
 <div class="grid-con">
-    <form id="booking-form" action="">
+    <div id="booking-form">
         <h1 id="ny-booking-label">Ny booking</h1>
 
         <div id="dateData">
@@ -80,8 +83,9 @@
                     <option value={{this}}>{{this}}</option>
                 {{/each}}
             </select>
-            <label>Dato: <input type="text" id="date"></label>
+            <label>Fra Dato: <input type="text" id="date"></label>
             <br>
+            <label>Til Dato: <input type="text" id="date2"></label>
             <label>Start tid: <input type="text" required id="startDate"> </label>
             <br>
             <label>Slut tid: <input type="text" required id="endDate"> </label>
@@ -134,6 +138,6 @@
         </div>
 
             <button id="create-booking-button" onclick="createBooking()">Reserver tid</button>
-    </form>
+    </div>
 </div>
 </body>

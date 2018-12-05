@@ -25,7 +25,7 @@ let bookingSchema = new mongoose.Schema({
     light: Boolean,
     lockerRoom: Boolean,
     renter: String,
-    contatctPerson: String,
+    contactPerson: String,
     mail: String,
     phone: String,
     comment: String
@@ -112,7 +112,7 @@ app.post('/api/bookings', function (request, response) {
     })
 })
 
-app.delete('api/bookings', function (request, response) {
+app.delete('/api/bookings/:id', function (request, response) {
     booking.findOneAndDelete({
         _id: request.params.id
     }).exec()
