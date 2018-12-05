@@ -72,18 +72,12 @@ Handlebars.registerHelper('bookingDate2', date => {
 
 function prevMonth(){
     calendar.previousMonth();
-    const days = calendar.days;
-    document.getElementById('calendar').innerHTML = compiledCalendar({
-        days
-    });
+    refreshCalendarTemplate(calendar.days);
 }
 
 function nextMonth(){
     calendar.nextMonth();
-    const days = calendar.days;
-    document.getElementById('calendar').innerHTML = compiledCalendar({
-        days
-    });
+    refreshCalendarTemplate(calendar.days);
 }
 
 async function login() {
@@ -129,10 +123,7 @@ async function loadCalendar() {
     const template = await fetch('/calendar.hbs');
     const templateText = await template.text();
     compiledCalendar = Handlebars.compile(templateText);
-    let days = calendar.days;
-    document.getElementById('calendar').innerHTML = compiledCalendar({
-        days
-    });
+    refreshCalendarTemplate(calendar.days);
 }
 
 async function bookingThisDay(day) {
@@ -222,5 +213,11 @@ function toggleBookingForm() {
         form.style.display = 'grid';
     else
         form.style.display = 'none';
+}
+
+function refreshCalendarTemplate(days){
+    document.getElementById('calendar').innerHTML = compiledCalendar({
+        days
+    });
 }
 
