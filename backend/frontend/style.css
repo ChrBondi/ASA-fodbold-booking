@@ -35,6 +35,11 @@ header {
     padding: 1rem;
 }
 
+#settings-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
 main {
     grid-column: 1 / 4;
     background-color: white;
