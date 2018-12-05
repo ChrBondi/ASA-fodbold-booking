@@ -43,12 +43,8 @@ class Calendar {
 }
 
 const calendar = new Calendar();
-let compiledDashboard;
 
 onload = async () => {
-    //const template = await fetch('/dashboard.hbs');
-    //const templateText = await template.text();
-    //compiledDashboard = Handlebars.compile(templateText);
 
     const button = document.querySelector('#button');
     if (button) {
@@ -58,6 +54,17 @@ onload = async () => {
     Handlebars.registerHelper('formatBooking', booking => {
         return `${booking.startDate}`;
     });
+
+    Handlebars.registerHelper('formatDate', date => {
+        return `${date.getMonth()+1} - ${date.getFullYear()}`;
+    })
+
+    Handlebars.registerHelper('formatMonth', date => {
+        let locale = "da-DK";
+        return date.toLocaleString(locale, {
+            month: "long"
+        });
+    })
 };
 
 Handlebars.registerHelper('bookingDate1', date => {
@@ -72,12 +79,12 @@ Handlebars.registerHelper('bookingDate2', date => {
 
 function prevMonth(){
     calendar.previousMonth();
-    refreshCalendarTemplate(calendar.days);
+    refreshCalendarTemplate(calendar.days, null, calendar.currentDate);
 }
 
 function nextMonth(){
     calendar.nextMonth();
-    refreshCalendarTemplate(calendar.days);
+    refreshCalendarTemplate(calendar.days, null, calendar.currentDate);
 }
 
 async function login() {
@@ -123,25 +130,18 @@ async function loadCalendar() {
     const template = await fetch('/calendar.hbs');
     const templateText = await template.text();
     compiledCalendar = Handlebars.compile(templateText);
-    refreshCalendarTemplate(calendar.days);
+    refreshCalendarTemplate(calendar.days, null, calendar.currentDate);
 }
 
 async function bookingThisDay(day) {
-    const month = document.body.querySelector('#month').value;
-    const year = document.body.querySelector('#year').innerHTML;
-    console.log()
-    console.log(day + " " + day.length + " " + typeof day);
-
+    const currentDate = calendar.currentDate;
     if (day.toString().length < 2) day = '0' + day;
-    console.log(day + " " + day.length);
 
-    const bookings = await fetch(`/api/bookingsCalender/${year}-${month}-${day}T00:00:00`);
+    const bookings = await fetch(`/api/bookingsCalender/${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${day}T00:00:00`);
     console.log(bookings);
     const fields = await bookings.json();
-    document.getElementById('calendar').innerHTML = compiledCalendar({
-        fields, days
-    });
-    console.log(day);
+
+    refreshCalendarTemplate(calendar.days, fields, currentDate);
 }
 
 function createBooking() {
@@ -215,9 +215,9 @@ function toggleBookingForm() {
         form.style.display = 'none';
 }
 
-function refreshCalendarTemplate(days){
+function refreshCalendarTemplate(days, fields, currentDay){
     document.getElementById('calendar').innerHTML = compiledCalendar({
-        days
+        currentDay, fields, days
     });
 }
 

@@ -37,9 +37,6 @@ label {
     width: 185px;
 }
 
-
-
-
 #grid-con1 {
     grid-column: 1/4;
 }
@@ -120,10 +117,16 @@ label {
     margin: auto;
 }
 /* CALENDAR STYLES START HERE */
+#calendarBookings {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-row: auto;
+}
 
-/* #calendar {
-    max-width: 50%;
-}*/
+#calendar {
+    min-width: 560px;
+}
 
 ul {list-style-type: none;}
 
