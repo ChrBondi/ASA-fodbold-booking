@@ -1,5 +1,5 @@
 class Calendar {
-    constructor(){
+    constructor() {
         this.currentDate = new Date();
         this.days = this.getDays();
     }
@@ -31,12 +31,12 @@ class Calendar {
         return new Date(year, month, 0).getDate();
     }
 
-    previousMonth(){
+    previousMonth() {
         this.currentDate.setDate(0);
         this.getDays();
     }
 
-    nextMonth(){
+    nextMonth() {
         this.currentDate.setDate(32);
         this.getDays();
     }
@@ -71,12 +71,12 @@ Handlebars.registerHelper('bookingDate2', date => {
     return endDate.getHours() + ":" + endDate.getMinutes();
 });
 
-function prevMonth(){
+function prevMonth() {
     calendar.previousMonth();
     refreshCalendarTemplate(calendar.days);
 }
 
-function nextMonth(){
+function nextMonth() {
     calendar.nextMonth();
     refreshCalendarTemplate(calendar.days);
 }
@@ -146,7 +146,7 @@ async function bookingThisDay(day) {
     console.log(day);
 }
 
-function createBooking() {
+async function createBooking() {
     const date = document.getElementById("date").value;
     const date2 = document.getElementById("date2").value;
     const startTime = document.getElementById("startDate").value;
@@ -187,42 +187,35 @@ function createBooking() {
                 comment: comment
             }
             if (date === date2) {
-            fetch('/api/bookings', {
-                method: "POST",
-                body: JSON.stringify(data),
-                headers: {
-                    "Content-Type": 'application/json'
-                }
-            })
-                .then(resultat => {
-                    if (resultat.status >= 400)
-                        throw new Error(resultat.status);
-                    else {
-                        return resultat.json();
+                fetch('/api/bookings', {
+                    method: "POST",
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": 'application/json'
                     }
-                })      
+                })
+                    .then(resultat => {
+                        if (resultat.status >= 400)
+                            throw new Error(resultat.status);
+                        else {
+                            return resultat.json();
+                        }
+                    })
             } else {
-                const daysBetween = Math.round(Math.abs((new Date(s[2],s[1]-1,s[0]).getTime()-new Date(ss[2],ss[1]-1,ss[0]).getTime())/(86400000)));
-                for (let i = 0; i<=daysBetween; i=i+7) {
-                    fetch('/api/bookings', {
+                const daysBetween = Math.round(Math.abs((new Date(s[2], s[1] - 1, s[0]).getTime() - new Date(ss[2], ss[1] - 1, ss[0]).getTime()) / (86400000)));
+                for (let i = 0; i <= daysBetween; i = i + 7) {
+                    const res = await fetch('/api/bookings', {
                         method: "POST",
                         body: JSON.stringify(data),
                         headers: {
                             "Content-Type": 'application/json'
                         }
                     })
-                        .then(resultat => {
-                            if (resultat.status >= 400)
-                                throw new Error(resultat.status);
-                            else {
-                                data.startDate.setDate(data.startDate.getDate()+7);
-                                data.endDate.setDate(data.endDate.getDate()+7);
-                                console.log(data);
-                                return resultat.json();
-                            }
-                        })      
+                    data.startDate.setDate(data.startDate.getDate() + 7);
+                    data.endDate.setDate(data.endDate.getDate() + 7);
+                    console.log(data);
                 }
-             }
+            }
         } else {
             console.log("fejl ikke tid")
         }
@@ -282,22 +275,22 @@ function deleteBooking(id) {
                 throw new Error(resultat.status);
             else
                 document.getElementById("datoInf").innerHTML = "Dato:";
-                document.getElementById("startTimeInf").innerHTML = "Start tid:";
-                document.getElementById("endTimeInf").innerHTML = "Slut tid:";
-                document.getElementById("renterInf").innerHTML = "Lejer:";
-                document.getElementById("contactPersonInf").innerHTML = "Kontaktperson:";
-                document.getElementById("mailInf").innerHTML = "Mail:";
-                document.getElementById("phoneInf").innerHTML = "Tlf:";
-                document.getElementById("commentsInf").innerHTML = "Bemærkninger:";
-                document.getElementById("lightInf").innerHTML = "Lys:";
-                document.getElementById("lockerRoomInf").innerHTML = "Omkl:" ;
-                const p = document.getElementById(id);
-                p.parentNode.removeChild(p);
-                return resultat.json();
+            document.getElementById("startTimeInf").innerHTML = "Start tid:";
+            document.getElementById("endTimeInf").innerHTML = "Slut tid:";
+            document.getElementById("renterInf").innerHTML = "Lejer:";
+            document.getElementById("contactPersonInf").innerHTML = "Kontaktperson:";
+            document.getElementById("mailInf").innerHTML = "Mail:";
+            document.getElementById("phoneInf").innerHTML = "Tlf:";
+            document.getElementById("commentsInf").innerHTML = "Bemærkninger:";
+            document.getElementById("lightInf").innerHTML = "Lys:";
+            document.getElementById("lockerRoomInf").innerHTML = "Omkl:";
+            const p = document.getElementById(id);
+            p.parentNode.removeChild(p);
+            return resultat.json();
         })
         .catch(fejl => console.log('Fejl: ' + fejl));
 };
-function refreshCalendarTemplate(days){
+function refreshCalendarTemplate(days) {
     document.getElementById('calendar').innerHTML = compiledCalendar({
         days
     });
