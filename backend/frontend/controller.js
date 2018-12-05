@@ -1,3 +1,48 @@
+class Calendar {
+    constructor(){
+        this.currentDate = new Date();
+        this.days = this.getDays();
+    }
+
+    getDays() {
+        let days = [];
+
+        let tempDate = new Date(this.currentDate);
+        tempDate.setDate(1);
+        let weekDay = tempDate.getDay() - 1;
+        if (weekDay < 0) {
+            weekDay = 6;
+        }
+
+        for (let i = 0; i < weekDay; i++) {
+            days.push(" ");
+        }
+
+        const daysInM = this.daysInMonth(this.currentDate.getMonth() + 1, this.currentDate.getFullYear());
+        for (let i = 1; i <= daysInM; i++) {
+            days.push(`${i}`);
+        }
+
+        this.days = days;
+        return days;
+    }
+
+    daysInMonth(month, year) {
+        return new Date(year, month, 0).getDate();
+    }
+
+    previousMonth(){
+        this.currentDate.setDate(0);
+        this.getDays();
+    }
+
+    nextMonth(){
+        this.currentDate.setDate(32);
+        this.getDays();
+    }
+}
+
+const calendar = new Calendar();
 let compiledDashboard;
 
 onload = async () => {
@@ -13,7 +58,6 @@ onload = async () => {
     Handlebars.registerHelper('formatBooking', booking => {
         return `${booking.startDate}`;
     });
-    getDays(new Date());
 };
 
 Handlebars.registerHelper('bookingDate1', date => {
@@ -25,6 +69,16 @@ Handlebars.registerHelper('bookingDate2', date => {
     endDate = new Date(date);
     return endDate.getHours() + ":" + endDate.getMinutes();
 });
+
+function prevMonth(){
+    calendar.previousMonth();
+    refreshCalendarTemplate(calendar.days);
+}
+
+function nextMonth(){
+    calendar.nextMonth();
+    refreshCalendarTemplate(calendar.days);
+}
 
 async function login() {
     const name = document.querySelector('#name');
@@ -61,47 +115,15 @@ function getBookings(bane) {
             document.querySelector('#bookings').innerHTML = compiledBookings({
                 booking
             });
-            loadCalendar(booking);
         });
 }
 let compiledCalendar;
 let days;
 async function loadCalendar() {
-
     const template = await fetch('/calendar.hbs');
     const templateText = await template.text();
     compiledCalendar = Handlebars.compile(templateText);
-    days = getDays(new Date());
-    document.getElementById('calendar').innerHTML = compiledCalendar({
-        days
-    });
-}
-
-function getDays(date) {
-    let days = [];
-
-    let tempDate = new Date(date);
-    tempDate.setDate(1);
-    let weekDay = tempDate.getDay() - 1;
-    if (weekDay < 0) {
-        weekDay = 6
-    }
-
-    for (let i = 0; i < weekDay; i++) {
-        days.push(" ");
-    }
-
-    const daysInM = daysInMonth(date.getMonth() + 1, date.getFullYear());
-    for (let i = 1; i <= daysInM; i++) {
-        days.push(`${i}`);
-    }
-
-    console.log(days);
-    return days;
-}
-
-function daysInMonth(month, year) {
-    return new Date(year, month, 0).getDate();
+    refreshCalendarTemplate(calendar.days);
 }
 
 async function bookingThisDay(day) {
@@ -192,3 +214,10 @@ function toggleBookingForm() {
     else
         form.style.display = 'none';
 }
+
+function refreshCalendarTemplate(days){
+    document.getElementById('calendar').innerHTML = compiledCalendar({
+        days
+    });
+}
+
