@@ -148,6 +148,7 @@ async function bookingThisDay(day) {
 
 function createBooking() {
     const date = document.getElementById("date").value;
+    const date2 = document.getElementById("date2").value;
     const startTime = document.getElementById("startDate").value;
     const endTime = document.getElementById("endDate").value;
     const footballField = document.getElementById("footballField").value;
@@ -164,15 +165,16 @@ function createBooking() {
         const dateReqex = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
         if (timeReqex.test(startTime) && timeReqex.test(endTime) && dateReqex.test(date)) {
             const s = date.split("-");
+            const ss = date2.split("-");
             const st = startTime.split(":")
             const et = endTime.split(":");
-            const startDate = new Date();
+            let startDate = new Date();
             startDate.setFullYear(s[2], s[1] - 1, s[0]);
             startDate.setHours(st[0], st[1], 0, 0);
-            const endDate = new Date();
+            let endDate = new Date();
             endDate.setFullYear(s[2], s[1] - 1, s[0]);
             endDate.setHours(et[0], et[1], 0, 0);
-            const data = {
+            let data = {
                 startDate: startDate,
                 endDate: endDate,
                 footballField: footballField,
@@ -184,7 +186,7 @@ function createBooking() {
                 phone: phone,
                 comment: comment
             }
-
+            if (date === date2) {
             fetch('/api/bookings', {
                 method: "POST",
                 body: JSON.stringify(data),
@@ -198,7 +200,29 @@ function createBooking() {
                     else {
                         return resultat.json();
                     }
-                })
+                })      
+            } else {
+                const daysBetween = Math.round(Math.abs((new Date(s[2],s[1]-1,s[0]).getTime()-new Date(ss[2],ss[1]-1,ss[0]).getTime())/(86400000)));
+                for (let i = 0; i<=daysBetween; i=i+7) {
+                    fetch('/api/bookings', {
+                        method: "POST",
+                        body: JSON.stringify(data),
+                        headers: {
+                            "Content-Type": 'application/json'
+                        }
+                    })
+                        .then(resultat => {
+                            if (resultat.status >= 400)
+                                throw new Error(resultat.status);
+                            else {
+                                data.startDate.setDate(data.startDate.getDate()+7);
+                                data.endDate.setDate(data.endDate.getDate()+7);
+                                console.log(data);
+                                return resultat.json();
+                            }
+                        })      
+                }
+             }
         } else {
             console.log("fejl ikke tid")
         }

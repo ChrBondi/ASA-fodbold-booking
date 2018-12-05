@@ -71,7 +71,7 @@
 </div>
 
 <div class="grid-con">
-    <form id="booking-form" action="">
+    <div id="booking-form">
         <h1 id="ny-booking-label">Ny booking</h1>
 
         <div id="dateData">
@@ -83,8 +83,9 @@
                     <option value={{this}}>{{this}}</option>
                 {{/each}}
             </select>
-            <label>Dato: <input type="text" id="date"></label>
+            <label>Fra Dato: <input type="text" id="date"></label>
             <br>
+            <label>Til Dato: <input type="text" id="date2"></label>
             <label>Start tid: <input type="text" required id="startDate"> </label>
             <br>
             <label>Slut tid: <input type="text" required id="endDate"> </label>
@@ -137,6 +138,6 @@
         </div>
 
             <button id="create-booking-button" onclick="createBooking()">Reserver tid</button>
-    </form>
+    </div>
 </div>
 </body>
