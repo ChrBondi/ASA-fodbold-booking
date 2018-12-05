@@ -7,24 +7,23 @@
     </ul>
   </div>
 
-  <ul class="weekdays">
-    <li>Mandag</li>
-    <li>Tirsdag</li>
-    <li>Onsdag</li>
-    <li>Torsdag</li>
-    <li>Fredag</li>
-    <li>Lørdag</li>
-    <li>Søndag</li>
-  </ul>
-
-  <ul class="days">
+  <div id="calendar-grid">
+      <div id="weekdays">
+          <div>Mandag</div>
+          <div>Tirsdag</div>
+          <div>Onsdag</div>
+          <div>Torsdag</div>
+          <div>Fredag</div>
+          <div>Lørdag</div>
+          <div>Søndag</div>
+      </div>
       {{#each days}}
-          <li onclick="bookingThisDay({{this}})">{{this}}</li>
+          <div class="day" onclick="bookingThisDay({{this}})">{{this}}</div>
       {{/each}}
-  </ul>
+  </div>
 </div>
 
-<div id="calendarBookings" >
+<div id="calendar-bookings" >
   {{#each fields}}
   <ul>
     <li><b>{{@key}}</b></li>

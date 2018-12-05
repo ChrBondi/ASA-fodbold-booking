@@ -13,7 +13,7 @@ onload = async () => {
     });
 
     Handlebars.registerHelper('formatDate', date => {
-        return `${date.getMonth()+1} - ${date.getFullYear()}`;
+        return `${date.getFullYear()}`;
     })
 
     Handlebars.registerHelper('formatMonth', date => {
