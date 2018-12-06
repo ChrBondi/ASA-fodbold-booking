@@ -202,13 +202,13 @@ async function createBooking() {
     }
 }
 
-function toggleBookingForm() {
-    const form = document.getElementById('booking-form');
-    if (form.style.display === 'none')
-        form.style.display = 'grid';
-    else
-        form.style.display = 'none';
-}
+// function toggleBookingForm() {
+//    const form = document.getElementById('booking-form');
+//    if (form.style.display === 'none')
+//        form.style.display = 'grid';
+//    else
+//        form.style.display = 'none';
+// }
 
 function information(id) {
     const booking = bookingsList.find(book => book._id === id);
