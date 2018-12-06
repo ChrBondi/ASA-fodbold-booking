@@ -100,30 +100,14 @@ app.post('/api/bookings', async function (request, response) {
     const startDate = new Date(request.body.startDate);
     const endDate = new Date(request.body.endDate)
     if (request.body.footballField === "kunst8m1" || request.body.footballField === "kunst8m2") {
-        booking.find().or([{ footballField: "kunst11m1" }, { footballField: request.body.footballField }])
-            .then(bookings => {
-                bookings.forEach(b => {
-                    if ((request.body.startDate > b.startDate && request.body.startDate < b.endDate)
-                        || (request.body.endDate < b.startDate && request.body.endDate > b.endDate)) {
-                        timeSpace = false;
-                    }
-                })
-            })
+        const bookings = await booking.find().or([{ footballField: "kunst11m1" }, { footballField: request.body.footballField }])
+        unavailable = checkBookings(startDate, endDate, bookings);
     } else if (request.body.footballField === "kunst11m1") {
-        booking.find().or([{ footballField: "kunst8m1" }, { footballField: "kunst8m2" }, { footballField: request.body.footballField }])
-            .then(bookings => {
-                bookings.forEach(b => {
-                    if ((request.body.startDate > b.startDate && request.body.startDate < b.endDate)
-                        || (request.body.endDate < b.startDate && request.body.endDate > b.endDate)) {
-                        timeSpace = false;
-                    }
-                })
-            })
+        const bookings = await booking.find().or([{ footballField: "kunst8m1" }, { footballField: "kunst8m2" }, { footballField: request.body.footballField }])
+        unavailable = checkBookings(startDate, endDate, bookings);
     } else {
         const bookings = await booking.find({ footballField: request.body.footballField })
-         unavailable = bookings.some(b => {
-                return isTimeAvailable(startDate, endDate, b.startDate, b.endDate);
-        })  
+        unavailable = checkBookings(startDate, endDate, bookings);
     }
     if (!unavailable) {
         booking.create({
@@ -156,8 +140,14 @@ app.listen(8080);
 
 function isTimeAvailable(startDate, endDate, bstartDate, bendDate) {
     return ((startDate.getTime() >= bstartDate.getTime() && startDate.getTime() < bendDate.getTime())
-    || (endDate.getTime() < bstartDate.getTime() && endDate.getTime() >= bendDate.getTime()) 
-    || (startDate.getTime() <= bstartDate.getTime() && endDate.getTime() >= bendDate.getTime()))
+        || (endDate.getTime() < bstartDate.getTime() && endDate.getTime() >= bendDate.getTime())
+        || (startDate.getTime() <= bstartDate.getTime() && endDate.getTime() >= bendDate.getTime()))
+}
+
+function checkBookings(startDate, endDate, bookings) {
+    return bookings.some(b => {
+        return isTimeAvailable(startDate, endDate, b.startDate, b.endDate);
+    })
 }
 
 module.exports = app;
