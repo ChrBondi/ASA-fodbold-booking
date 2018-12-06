@@ -14,7 +14,6 @@
   <div class="grid-container">
     <header>
       <h1>Kunstgræsbanens bookingsystem</h1>
-          <button onclick="logout()">Log ud</button>
     </header>
 
     <main id="calendar">
@@ -73,10 +72,8 @@
               <td>Bemærkninger: </td>
               <td id="commentsInf"></td>
           </tr>
-          <tr>
-            <button id="deleteBtn">Slet booking</button>
-          </tr>
         </table>
+          <button id="deleteBtn">Slet booking</button>
       </div>
 
       <div id="booking-form">
@@ -118,7 +115,7 @@
         <h3 id="totalPrice">Pris: </h3>
         <br>
         <button id="create-booking-button" onclick="createBooking()">Reserver tid</button>
+          <button id="logout-button" onclick="logout()">Log ud</button>
       </div>
     </div>
-
 </body>

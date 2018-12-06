@@ -24,7 +24,14 @@ label {
 
 /* midlertidig */
 #create-booking-button {
-    max-height: 3em;
+    grid-column: 2/3;
+    margin-left: 35%;
+    margin-right: 35%;
+
+}
+
+#logout-button {
+    grid-column: 5/6;
 }
 
 .grid-container {
@@ -59,7 +66,9 @@ main {
 }
 
 #booking-details {
-    grid-column: 1 / 2
+    grid-column: 1 / 2;
+
+
 }
 
 #booking-form {
