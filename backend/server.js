@@ -122,10 +122,10 @@ app.post('/api/bookings', async function (request, response) {
             phone: request.body.phone,
             comment: request.body.comment
         }).then(res => {
-            response.json(res);
+            response.json({succes : true, message: "Booking oprettet"});
         })
     } else {
-        console.log("Tiden er taget");
+        response.json({succes: false, message: "Tid er taget"});
     }
 })
 
