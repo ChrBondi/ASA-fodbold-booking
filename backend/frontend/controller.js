@@ -214,7 +214,7 @@ function information(id) {
     const booking = bookingsList.find(book => book._id === id);
     const startDate = new Date(booking.startDate);
     const endDate = new Date(booking.endDate);
-    document.getElementById("datoInf").innerHTML =(startDate.getDate()) + "-" + (startDate.getMonth() + 1);
+    document.getElementById("datoInf").innerHTML = (startDate.getDate()) + "-" + (startDate.getMonth() + 1);
     document.getElementById("startTimeInf").innerHTML = startDate.getHours() + ":" + startDate.getMinutes();
     document.getElementById("endTimeInf").innerHTML = endDate.getHours() + ":" + endDate.getMinutes();
     document.getElementById("renterInf").innerHTML = booking.renter;
@@ -271,7 +271,34 @@ function deleteBooking(id) {
         .catch(fejl => console.log('Fejl: ' + fejl));
 }
 
-function copyText () {
+function copyText() {
     document.getElementById("date2").value = document.getElementById("date").value;
 }
 
+function price() {
+    const timeReqex = /^([01]\d|2[0-3]):?([0-5]\d)$/;
+    if (timeReqex.test(document.getElementById("startDate").value) && timeReqex.test(document.getElementById("endDate").value)) {
+        const st = document.getElementById("startDate").value.split(":");
+        const et = document.getElementById("endDate").value.split(":");
+        light = document.getElementById("light").checked;
+        startTime = new Date();
+        startTime.setHours(st[0], st[1], 0, 0);
+        endTime = new Date();
+        endTime.setHours(et[0], et[1], 0, 0);
+        let hours = (endTime.getTime() - startTime.getTime()) / 1000 / 60 / 60;
+        const lightsPrice = 150;
+        const elevenPrice = 650;
+        const restPrice = 325;
+        let totalPrice = 0;
+        if (document.getElementById("footballField").value === "kunst11m1") {
+            totalPrice += elevenPrice;
+        } else {
+            totalPrice += restPrice;
+        }
+        if (light) {
+            totalPrice += lightsPrice;
+        }
+        totalPrice *= hours;
+        document.getElementById("totalPrice").innerHTML ="Pris: "+ totalPrice;
+    }
+}
