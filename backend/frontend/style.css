@@ -8,6 +8,11 @@ body {
     text-align: center;
 }
 
+#name, #password {
+    margin: 10px;
+    text-align: center;
+    padding: 5px;
+}
 h1 {
     text-align: center;
     text-transform: uppercase;
@@ -71,6 +76,10 @@ main {
 
 }
 
+#button {
+    background-color: white;
+    color: black;
+}
 #booking-form {
     display: grid;
     grid-column: 2 / 3
