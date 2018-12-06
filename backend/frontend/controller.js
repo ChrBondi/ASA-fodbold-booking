@@ -274,4 +274,7 @@ function deleteBooking(id) {
         .catch(fejl => console.log('Fejl: ' + fejl));
 }
 
+function copyText () {
+    document.getElementById("date2").value = document.getElementById("date").value;
+}
 

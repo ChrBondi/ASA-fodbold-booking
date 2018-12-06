@@ -29,7 +29,7 @@
     <li><b>{{@key}}</b></li>
     {{#each this}}
     <li>
-        {{formatBooking this}}
+        {{bookingDate1 this.startDate}}{{bookingDate2 this.endDate}}
     </li>
     {{/each}}
   </ul>
