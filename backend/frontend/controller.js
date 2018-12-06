@@ -38,12 +38,12 @@ Handlebars.registerHelper('bookingDate2', date => {
 
 function prevMonth() {
     calendar.previousMonth();
-    refreshCalendarTemplate(calendar.days, null, calendar.currentDate);
+    refreshCalendarTemplate(calendar.days, null, calendar.currentDate, null);
 }
 
 function nextMonth() {
     calendar.nextMonth();
-    refreshCalendarTemplate(calendar.days, null, calendar.currentDate);
+    refreshCalendarTemplate(calendar.days, null, calendar.currentDate, null);
 }
 
 async function login() {
@@ -105,7 +105,10 @@ async function bookingThisDay(day) {
     const currentDate = calendar.currentDate;
     if (day.toString().length < 2) day = '0' + day;
 
-    const bookings = await fetch(`/api/bookingsCalender/${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${day}T00:00:00`);
+    let currentMonth = currentDate.getMonth() + 1;
+    if(currentMonth.toString().length < 2) currentMonth = '0'+ currentMonth;
+
+    const bookings = await fetch(`/api/bookingsCalender/${currentDate.getFullYear()}-${currentMonth}-${day}T00:00:00`);
     console.log(bookings);
     const fields = await bookings.json();
 
@@ -214,7 +217,7 @@ function information(id) {
     const booking = bookingsList.find(book => book._id === id);
     const startDate = new Date(booking.startDate);
     const endDate = new Date(booking.endDate);
-    document.getElementById("datoInf").innerHTML =(startDate.getDate()) + "-" + (startDate.getMonth() + 1);
+    document.getElementById("datoInf").innerHTML = (startDate.getDate()) + "-" + (startDate.getMonth() + 1);
     document.getElementById("startTimeInf").innerHTML = startDate.getHours() + ":" + startDate.getMinutes();
     document.getElementById("endTimeInf").innerHTML = endDate.getHours() + ":" + endDate.getMinutes();
     document.getElementById("renterInf").innerHTML = booking.renter;
@@ -271,7 +274,34 @@ function deleteBooking(id) {
         .catch(fejl => console.log('Fejl: ' + fejl));
 }
 
-function copyText () {
+function copyText() {
     document.getElementById("date2").value = document.getElementById("date").value;
 }
 
+function price() {
+    const timeReqex = /^([01]\d|2[0-3]):?([0-5]\d)$/;
+    if (timeReqex.test(document.getElementById("startDate").value) && timeReqex.test(document.getElementById("endDate").value)) {
+        const st = document.getElementById("startDate").value.split(":");
+        const et = document.getElementById("endDate").value.split(":");
+        light = document.getElementById("light").checked;
+        startTime = new Date();
+        startTime.setHours(st[0], st[1], 0, 0);
+        endTime = new Date();
+        endTime.setHours(et[0], et[1], 0, 0);
+        let hours = (endTime.getTime() - startTime.getTime()) / 1000 / 60 / 60;
+        const lightsPrice = 150;
+        const elevenPrice = 650;
+        const restPrice = 325;
+        let totalPrice = 0;
+        if (document.getElementById("footballField").value === "kunst11m1") {
+            totalPrice += elevenPrice;
+        } else {
+            totalPrice += restPrice;
+        }
+        if (light) {
+            totalPrice += lightsPrice;
+        }
+        totalPrice *= hours;
+        document.getElementById("totalPrice").innerHTML ="Pris: "+ totalPrice;
+    }
+}
