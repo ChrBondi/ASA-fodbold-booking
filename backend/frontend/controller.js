@@ -38,12 +38,12 @@ Handlebars.registerHelper('bookingDate2', date => {
 
 function prevMonth() {
     calendar.previousMonth();
-    refreshCalendarTemplate(calendar.days, null, calendar.currentDate);
+    refreshCalendarTemplate(calendar.days, null, calendar.currentDate, null);
 }
 
 function nextMonth() {
     calendar.nextMonth();
-    refreshCalendarTemplate(calendar.days, null, calendar.currentDate);
+    refreshCalendarTemplate(calendar.days, null, calendar.currentDate, null);
 }
 
 async function login() {
@@ -105,7 +105,10 @@ async function bookingThisDay(day) {
     const currentDate = calendar.currentDate;
     if (day.toString().length < 2) day = '0' + day;
 
-    const bookings = await fetch(`/api/bookingsCalender/${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${day}T00:00:00`);
+    let currentMonth = currentDate.getMonth() + 1;
+    if(currentMonth.toString().length < 2) currentMonth = '0'+ currentMonth;
+
+    const bookings = await fetch(`/api/bookingsCalender/${currentDate.getFullYear()}-${currentMonth}-${day}T00:00:00`);
     console.log(bookings);
     const fields = await bookings.json();
 

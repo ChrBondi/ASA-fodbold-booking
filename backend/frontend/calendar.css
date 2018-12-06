@@ -63,8 +63,7 @@ ul {list-style-type: none;}
 }
 
 .active {
-    background: #AAAAAA;
-    color: white !important
+    background: #ddd;
 }
 
 /* /\* Highlight the "current" day *\/ */
