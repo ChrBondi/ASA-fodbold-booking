@@ -69,11 +69,11 @@ main {
 }
 
 #selectBane {
-    padding-left: 20px;
+    padding-left: 15px;
     padding-right: 20px;
-    margin: 5px;
+    margin: 10px;
 }
 
 button {
-    margin: 5px;
+    margin: 10px;
 }
