@@ -62,6 +62,18 @@ ul {list-style-type: none;}
     min-height: 2rem;
 }
 
+.active {
+    background: #AAAAAA;
+    color: white !important
+}
+
+/* /\* Highlight the "current" day *\/ */
+/* .days li .active { */
+/*     padding: 5px; */
+/*     background: #AAAAAA; */
+/*     color: white !important */
+/* } */
+
 /* /\* Weekdays (Mon-Sun) *\/ */
 /* .weekdays { */
 /*     margin: 0; */

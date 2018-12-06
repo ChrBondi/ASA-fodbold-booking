@@ -8,6 +8,8 @@ onload = async () => {
         button.onclick = login;
     }
 
+    loadCalendar();
+
     Handlebars.registerHelper('formatBooking', booking => {
         return `${booking.startDate}`;
     });
@@ -22,7 +24,6 @@ onload = async () => {
             month: "long"
         });
     });
-    loadCalendar();
 };
 
 Handlebars.registerHelper('bookingDate1', date => {
@@ -64,7 +65,6 @@ async function login() {
     const answer = await result.json();
     if (answer.ok) {
         window.location.href = "/session";
-
     }
     else {
         error.innerHTML = "Login fejl!";
@@ -73,7 +73,7 @@ async function login() {
 }
 
 function logout() {
-    window.location.href ='/logout';
+    window.location.href = '/logout';
 }
 
 function getBookings(bane) {
@@ -92,16 +92,16 @@ function getBookings(bane) {
 }
 
 let compiledCalendar;
-let days;
 
 async function loadCalendar() {
     const template = await fetch('/calendar.hbs');
     const templateText = await template.text();
     compiledCalendar = Handlebars.compile(templateText);
-    refreshCalendarTemplate(calendar.days, null, calendar.currentDate);
+    refreshCalendarTemplate(calendar.days, null, calendar.currentDate, null);
 }
 
 async function bookingThisDay(day) {
+    const temp = day;
     const currentDate = calendar.currentDate;
     if (day.toString().length < 2) day = '0' + day;
 
@@ -109,7 +109,19 @@ async function bookingThisDay(day) {
     console.log(bookings);
     const fields = await bookings.json();
 
-    refreshCalendarTemplate(calendar.days, fields, currentDate);
+    refreshCalendarTemplate(calendar.days, fields, currentDate, temp);
+}
+
+
+function refreshCalendarTemplate(days, fields, currentDay, day) {
+    document.getElementById('calendar').innerHTML = compiledCalendar({
+        currentDay, fields, days
+    });
+
+    if (day !== null) {
+        const temp = Array.from(document.querySelectorAll('.day'));
+        temp.find(i => i.innerHTML == day).className += " active";
+    }
 }
 
 async function createBooking() {
@@ -126,13 +138,13 @@ async function createBooking() {
     const phone = document.getElementById("phone").value;
     const comment = document.getElementById("comment").value;
 
-    if (date != "" && startTime != "" && endTime != "" && footballField != "" && renter != "" && contactPerson != "" && (mail != "" || phone != "")) {
-        const timeReqex = /^([01]\d|2[0-3]):?([0-5]\d)$/
+    if (date !== "" && startTime !== "" && endTime !== "" && footballField !== "" && renter !== "" && contactPerson !== "" && (mail !== "" || phone !== "")) {
+        const timeReqex = /^([01]\d|2[0-3]):?([0-5]\d)$/;
         const dateReqex = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
         if (timeReqex.test(startTime) && timeReqex.test(endTime) && dateReqex.test(date)) {
             const s = date.split("-");
             const ss = date2.split("-");
-            const st = startTime.split(":")
+            const st = startTime.split(":");
             const et = endTime.split(":");
             let startDate = new Date();
             startDate.setFullYear(s[2], s[1] - 1, s[0]);
@@ -257,11 +269,6 @@ function deleteBooking(id) {
             return resultat.json();
         })
         .catch(fejl => console.log('Fejl: ' + fejl));
-};
-
-function refreshCalendarTemplate(days, fields, currentDay) {
-    document.getElementById('calendar').innerHTML = compiledCalendar({
-        currentDay, fields, days
-    });
 }
+
 
