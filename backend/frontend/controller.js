@@ -8,20 +8,22 @@ onload = async () => {
         button.onclick = login;
     }
 
+    loadCalendar();
+
     Handlebars.registerHelper('formatBooking', booking => {
         return `${booking.startDate}`;
     });
 
     Handlebars.registerHelper('formatDate', date => {
         return `${date.getFullYear()}`;
-    })
+    });
 
     Handlebars.registerHelper('formatMonth', date => {
         let locale = "da-DK";
         return date.toLocaleString(locale, {
             month: "long"
         });
-    })
+    });
 };
 
 Handlebars.registerHelper('bookingDate1', date => {
@@ -61,12 +63,18 @@ async function login() {
         }
     });
     const answer = await result.json();
-    if (answer.ok)
+    if (answer.ok) {
         window.location.href = "/session";
+    }
     else {
         error.innerHTML = "Login fejl!";
     }
-};
+
+}
+
+function logout() {
+    window.location.href = '/logout';
+}
 
 function getBookings(bane) {
     fetch('/api/bookings/' + bane)
@@ -82,24 +90,38 @@ function getBookings(bane) {
             });
         });
 }
+
 let compiledCalendar;
-let days;
+
 async function loadCalendar() {
     const template = await fetch('/calendar.hbs');
     const templateText = await template.text();
     compiledCalendar = Handlebars.compile(templateText);
-    refreshCalendarTemplate(calendar.days, null, calendar.currentDate);
+    refreshCalendarTemplate(calendar.days, null, calendar.currentDate, null);
 }
 
 async function bookingThisDay(day) {
+    const temp = day;
     const currentDate = calendar.currentDate;
     if (day.toString().length < 2) day = '0' + day;
 
-    const bookings = await fetch(`/api/bookingsCalender/${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${day}T00:00:00`);
+    const bookings = await fetch(`/api/bookingsCalender/${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${day}T00:00:00`);
     console.log(bookings);
     const fields = await bookings.json();
 
-    refreshCalendarTemplate(calendar.days, fields, currentDate);
+    refreshCalendarTemplate(calendar.days, fields, currentDate, temp);
+}
+
+
+function refreshCalendarTemplate(days, fields, currentDay, day) {
+    document.getElementById('calendar').innerHTML = compiledCalendar({
+        currentDay, fields, days
+    });
+
+    if (day !== null) {
+        const temp = Array.from(document.querySelectorAll('.day'));
+        temp.find(i => i.innerHTML == day).className += " active";
+    }
 }
 
 async function createBooking() {
@@ -116,13 +138,13 @@ async function createBooking() {
     const phone = document.getElementById("phone").value;
     const comment = document.getElementById("comment").value;
 
-    if (date != "" && startTime != "" && endTime != "" && footballField != "" && renter != "" && contactPerson != "" && (mail != "" || phone != "")) {
-        const timeReqex = /^([01]\d|2[0-3]):?([0-5]\d)$/
+    if (date !== "" && startTime !== "" && endTime !== "" && footballField !== "" && renter !== "" && contactPerson !== "" && (mail !== "" || phone !== "")) {
+        const timeReqex = /^([01]\d|2[0-3]):?([0-5]\d)$/;
         const dateReqex = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
         if (timeReqex.test(startTime) && timeReqex.test(endTime) && dateReqex.test(date)) {
             const s = date.split("-");
             const ss = date2.split("-");
-            const st = startTime.split(":")
+            const st = startTime.split(":");
             const et = endTime.split(":");
             let startDate = new Date();
             startDate.setFullYear(s[2], s[1] - 1, s[0]);
@@ -192,31 +214,33 @@ function information(id) {
     const booking = bookingsList.find(book => book._id === id);
     const startDate = new Date(booking.startDate);
     const endDate = new Date(booking.endDate);
-    document.getElementById("datoInf").innerHTML = "Dato: " + (startDate.getDate()) + "-" + (startDate.getMonth() + 1);
-    document.getElementById("startTimeInf").innerHTML = "Start tid: " + startDate.getHours() + ":" + startDate.getMinutes();
-    document.getElementById("endTimeInf").innerHTML = "Slut tid: " + endDate.getHours() + ":" + endDate.getMinutes();
-    document.getElementById("renterInf").innerHTML = "Lejer: " + booking.renter;
-    document.getElementById("contactPersonInf").innerHTML = "Kontaktperson: " + booking.contactPerson;
-    document.getElementById("mailInf").innerHTML = "Mail: " + booking.mail;
-    document.getElementById("phoneInf").innerHTML = "Tlf: " + booking.phone;
-    document.getElementById("commentsInf").innerHTML = "Bemærkninger: " + booking.comment;
+    document.getElementById("datoInf").innerHTML =(startDate.getDate()) + "-" + (startDate.getMonth() + 1);
+    document.getElementById("startTimeInf").innerHTML = startDate.getHours() + ":" + startDate.getMinutes();
+    document.getElementById("endTimeInf").innerHTML = endDate.getHours() + ":" + endDate.getMinutes();
+    document.getElementById("renterInf").innerHTML = booking.renter;
+    document.getElementById("contactPersonInf").innerHTML = booking.contactPerson;
+    document.getElementById("mailInf").innerHTML = booking.mail;
+    document.getElementById("phoneInf").innerHTML = booking.phone;
+    document.getElementById("commentsInf").innerHTML = booking.comment;
     let lightS;
     if (booking.light)
         lightS = "Ja"
     else
         lightS = "Nej"
 
-    document.getElementById("lightInf").innerHTML = "Lys: " + lightS;
+    document.getElementById("lightInf").innerHTML = lightS;
     let lockerRoomS;
     if (booking.lockerRoom)
         lockerRoomS = "Ja"
     else
         lockerRoomS = "Nej"
 
-    document.getElementById("lockerRoomInf").innerHTML = "Omkl: " + lockerRoomS;
+    document.getElementById("lockerRoomInf").innerHTML = lockerRoomS;
 
     const btn = document.getElementById("deleteBtn");
-    btn.onclick = function () { deleteBooking(id) };
+    btn.onclick = function () {
+        deleteBooking(id)
+    };
 }
 
 function deleteBooking(id) {
@@ -230,26 +254,21 @@ function deleteBooking(id) {
             if (resultat.status >= 400)
                 throw new Error(resultat.status);
             else
-                document.getElementById("datoInf").innerHTML = "Dato:";
-            document.getElementById("startTimeInf").innerHTML = "Start tid:";
-            document.getElementById("endTimeInf").innerHTML = "Slut tid:";
-            document.getElementById("renterInf").innerHTML = "Lejer:";
-            document.getElementById("contactPersonInf").innerHTML = "Kontaktperson:";
-            document.getElementById("mailInf").innerHTML = "Mail:";
-            document.getElementById("phoneInf").innerHTML = "Tlf:";
-            document.getElementById("commentsInf").innerHTML = "Bemærkninger:";
-            document.getElementById("lightInf").innerHTML = "Lys:";
-            document.getElementById("lockerRoomInf").innerHTML = "Omkl:";
+                document.getElementById("datoInf").innerHTML = "";
+            document.getElementById("startTimeInf").innerHTML = "";
+            document.getElementById("endTimeInf").innerHTML = "";
+            document.getElementById("renterInf").innerHTML = "";
+            document.getElementById("contactPersonInf").innerHTML = "";
+            document.getElementById("mailInf").innerHTML = "";
+            document.getElementById("phoneInf").innerHTML = "";
+            document.getElementById("commentsInf").innerHTML = "";
+            document.getElementById("lightInf").innerHTML = "";
+            document.getElementById("lockerRoomInf").innerHTML = "";
             const p = document.getElementById(id);
             p.parentNode.removeChild(p);
             return resultat.json();
         })
         .catch(fejl => console.log('Fejl: ' + fejl));
-};
-function refreshCalendarTemplate(days, fields, currentDay) {
-    document.getElementById('calendar').innerHTML = compiledCalendar({
-        currentDay, fields, days
-    });
 }
 
 function copyText () {
