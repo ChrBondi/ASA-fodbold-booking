@@ -26,10 +26,10 @@
 <div id="calendar-bookings" >
   {{#each fields}}
   <ul>
-    <li><b>{{@key}}</b></li>
+    <li id="fieldKey"><b>{{@key}}</b></li>
     {{#each this}}
     <li>
-        {{bookingDate1 this.startDate}}{{bookingDate2 this.endDate}}
+        {{formatBooking this}}
     </li>
     {{/each}}
   </ul>

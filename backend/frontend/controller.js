@@ -11,7 +11,10 @@ onload = async () => {
     loadCalendar();
 
     Handlebars.registerHelper('formatBooking', booking => {
-        return `${booking.startDate}`;
+        let start = new Date(booking.startDate);
+        let end = new Date(booking.endDate);
+        return `Lejer: ${booking.renter}
+        Klokken: ${start.getHours()}:${start.getMinutes()} - ${end.getHours()}:${end.getMinutes()}`;
     });
 
     Handlebars.registerHelper('formatDate', date => {
