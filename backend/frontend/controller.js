@@ -252,3 +252,7 @@ function refreshCalendarTemplate(days, fields, currentDay) {
     });
 }
 
+function copyText () {
+    document.getElementById("date2").value = document.getElementById("date").value;
+}
+

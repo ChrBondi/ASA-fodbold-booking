@@ -82,12 +82,12 @@
                     <option value={{this}}>{{this}}</option>
                 {{/each}}
             </select>
-          <label>Fra Dato: <input type="text" id="date"></label>
+          <label>Fra Dato: <input type="text" placeholder="DD-MM-YYYY" id="date" onkeyup="copyText()"></label>
           <br>
-          <label>Til Dato: <input type="text" id="date2"></label>
-          <label>Start tid: <input type="text" required id="startDate"> </label>
+          <label>Til Dato: <input type="text" placeholder="DD-MM-YYYY" id="date2"></label>
+          <label>Start tid: <input type="text" placeholder="TT:MM" required id="startDate"> </label>
           <br>
-          <label>Slut tid: <input type="text" required id="endDate"> </label>
+          <label>Slut tid: <input type="text" placeholder="TT:MM" required id="endDate"> </label>
           <br>
           <br>
           <label id="checkbox1">Lys: <input type="checkbox" id="light"></label>
