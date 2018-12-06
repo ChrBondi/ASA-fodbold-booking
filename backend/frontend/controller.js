@@ -14,14 +14,15 @@ onload = async () => {
 
     Handlebars.registerHelper('formatDate', date => {
         return `${date.getFullYear()}`;
-    })
+    });
 
     Handlebars.registerHelper('formatMonth', date => {
         let locale = "da-DK";
         return date.toLocaleString(locale, {
             month: "long"
         });
-    })
+    });
+    loadCalendar();
 };
 
 Handlebars.registerHelper('bookingDate1', date => {
@@ -61,12 +62,19 @@ async function login() {
         }
     });
     const answer = await result.json();
-    if (answer.ok)
+    if (answer.ok) {
         window.location.href = "/session";
+
+    }
     else {
         error.innerHTML = "Login fejl!";
     }
-};
+
+}
+
+function logout() {
+    window.location.href ='/logout';
+}
 
 function getBookings(bane) {
     fetch('/api/bookings/' + bane)
@@ -82,8 +90,10 @@ function getBookings(bane) {
             });
         });
 }
+
 let compiledCalendar;
 let days;
+
 async function loadCalendar() {
     const template = await fetch('/calendar.hbs');
     const templateText = await template.text();
@@ -95,7 +105,7 @@ async function bookingThisDay(day) {
     const currentDate = calendar.currentDate;
     if (day.toString().length < 2) day = '0' + day;
 
-    const bookings = await fetch(`/api/bookingsCalender/${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${day}T00:00:00`);
+    const bookings = await fetch(`/api/bookingsCalender/${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${day}T00:00:00`);
     console.log(bookings);
     const fields = await bookings.json();
 
@@ -216,7 +226,9 @@ function information(id) {
     document.getElementById("lockerRoomInf").innerHTML = "Omkl: " + lockerRoomS;
 
     const btn = document.getElementById("deleteBtn");
-    btn.onclick = function () { deleteBooking(id) };
+    btn.onclick = function () {
+        deleteBooking(id)
+    };
 }
 
 function deleteBooking(id) {
@@ -246,6 +258,7 @@ function deleteBooking(id) {
         })
         .catch(fejl => console.log('Fejl: ' + fejl));
 };
+
 function refreshCalendarTemplate(days, fields, currentDay) {
     document.getElementById('calendar').innerHTML = compiledCalendar({
         currentDay, fields, days
