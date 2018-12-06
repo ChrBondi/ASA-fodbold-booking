@@ -79,6 +79,7 @@ main {
 #button {
     background-color: white;
     color: black;
+
 }
 #booking-form {
     display: grid;
@@ -107,4 +108,20 @@ button {
     display: inline-block;
     font-size: 14px;
     border-radius: 8px;
+}
+
+#booking-form {
+    width: 55%;
+}
+
+input, textarea, select, label {
+    margin: 5px;
+}
+select {
+    margin-bottom: 5%;
+}
+
+#footballField {
+    padding-left: 15px;
+    padding-right: 20px;
 }

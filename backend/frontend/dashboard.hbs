@@ -88,31 +88,25 @@
                     <option value={{this}}>{{this}}</option>
                 {{/each}}
             </select>
+            <br>
           <label>Fra Dato: <input type="text" placeholder="DD-MM-YYYY" id="date" onkeyup="copyText()"></label>
-          <br>
           <label>Til Dato: <input type="text" placeholder="DD-MM-YYYY" id="date2" ></label>
           <label>Start tid: <input type="text" placeholder="TT:MM" required id="startDate" onkeyup="price()"> </label>
-          <br>
           <label>Slut tid: <input type="text" placeholder="TT:MM" required id="endDate" onkeyup="price()"> </label>
-          <br>
-          <br>
           <label id="checkbox1">Lys: <input type="checkbox" id="light" onclick="price()"></label>
-          <br>
           <label id="checkbox2">Omkl: <input type="checkbox" id="lockerRoom"></label>
-        </div>
 
-        <div>
-          <h3>Kontakt information</h3>
+            <br>
+            <br>
 
           <label>Lejer: <input type="text" required id="renter"></label>
           <label>Kontaktperson: <input type="text" required id="contactPerson"></label>
           <label>Mail: <input type="text" id="mail"></label>
           <label>Tlf: <input type="text" id="phone"></label>
-          <br>
           <label>Bemærkninger: <textarea id="comment"></textarea></label>
         </div>
 
-        <h3 id="totalPrice">Pris: </h3>
+        <p id="totalPrice">Pris: 0</p>
         <br>
         <button id="create-booking-button" onclick="createBooking()">Reserver tid</button>
           <button id="logout-button" onclick="logout()">Log ud</button>
