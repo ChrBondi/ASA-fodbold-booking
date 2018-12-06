@@ -22,7 +22,7 @@
 
     <div id="booking-overview">
       <div id="booking-details">
-        <h2>Vælg bane for at se bookede tider</h2>
+        <h2>Bane oversigt</h2>
         <select id="selectBane" onchange="getBookings(this.options[this.selectedIndex].value)">
             <option disabled selected value> -- vælg en bane --</option>
             {{#each options}}
@@ -36,27 +36,42 @@
         <table id="booking-information">
           <tr>
             <th>Booking information</th>
-            <th>Kontakt information</th>
+            <th> </th>
           </tr>
           <tr>
-            <td id="datoInf">Dato:</td>
-            <td id="renterInf">Lejer:</td>
+              <td>Dato: </td>
+            <td id="datoInf"></td>
+              <td>  </td>
+              <td>Lejer: </td>
+            <td id="renterInf"></td>
           </tr>
           <tr>
-            <td id="startTimeInf">Start tid:</td>
-            <td id="contactPersonInf">Kontaktperson:</td>
+              <td>Start tid: </td>
+            <td id="startTimeInf"></td>
+              <td>  </td>
+              <td>Kontaktperson: </td>
+            <td id="contactPersonInf"></td>
           </tr>
           <tr>
-            <td id="endTimeInf">Slut tid:</td>
-            <td id="mailInf">Mail:</td>
+              <td>Slut tid: </td>
+            <td id="endTimeInf"></td>
+              <td>  </td>
+              <td>Mail: </td>
+            <td id="mailInf"></td>
           </tr>
           <tr>
-            <td id="lightInf">Lys:</td>
-            <td id="phoneInf">Tlf:</td>
+            <td>Lys: </td>
+            <td id="lightInf"></td>
+              <td>  </td>
+              <td>Tlf: </td>
+              <td id="phoneInf"></td>
           </tr>
           <tr>
-            <td id="lockerRoomInf">Omkl:</td>
-            <td id="commentsInf">Bemærkninger:</td>
+              <td>Omkl: </td>
+            <td id="lockerRoomInf"></td>
+              <td>  </td>
+              <td>Bemærkninger: </td>
+              <td id="commentsInf"></td>
           </tr>
           <tr>
             <button id="deleteBtn">Slet</button>
@@ -65,10 +80,10 @@
       </div>
 
       <div id="booking-form">
-        <h1 id="ny-booking-label">Ny booking</h1>
+        <h2 id="ny-booking-label">Ny booking</h2>
 
         <div id="dateData">
-          <h2>Booking information</h2>
+          <h3>Booking information</h3>
 
           <select id="footballField">
                 <option disabled selected value> -- vælg en bane --</option>
@@ -90,7 +105,7 @@
         </div>
 
         <div>
-          <h2>Kontakt information</h2>
+          <h3>Kontakt information</h3>
 
           <label>Lejer: <input type="text" required id="renter"></label>
           <label>Kontaktperson: <input type="text" required id="contactPerson"></label>
@@ -101,7 +116,7 @@
         </div>
 
         <div id="priceData">
-          <h2>Pris oversigt</h2>
+          <h3>Pris oversigt</h3>
           <br>
           <table id="price-information">
             <tr>
@@ -112,19 +127,19 @@
             <tr>
               <td>Baneleje</td>
               <td> </td>
-              <td>XXX</td>
+              <td> </td>
 
             </tr>
             <tr>
               <td>Lys</td>
               <td> </td>
-              <td>XXX</td>
+              <td> </td>
 
             </tr>
             <tr>
               <th>Pris i alt</th>
               <td> </td>
-              <td>XXX</td>
+              <td> </td>
 
             </tr>
           </table>

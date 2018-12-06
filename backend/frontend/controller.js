@@ -202,28 +202,28 @@ function information(id) {
     const booking = bookingsList.find(book => book._id === id);
     const startDate = new Date(booking.startDate);
     const endDate = new Date(booking.endDate);
-    document.getElementById("datoInf").innerHTML = "Dato: " + (startDate.getDate()) + "-" + (startDate.getMonth() + 1);
-    document.getElementById("startTimeInf").innerHTML = "Start tid: " + startDate.getHours() + ":" + startDate.getMinutes();
-    document.getElementById("endTimeInf").innerHTML = "Slut tid: " + endDate.getHours() + ":" + endDate.getMinutes();
-    document.getElementById("renterInf").innerHTML = "Lejer: " + booking.renter;
-    document.getElementById("contactPersonInf").innerHTML = "Kontaktperson: " + booking.contactPerson;
-    document.getElementById("mailInf").innerHTML = "Mail: " + booking.mail;
-    document.getElementById("phoneInf").innerHTML = "Tlf: " + booking.phone;
-    document.getElementById("commentsInf").innerHTML = "Bemærkninger: " + booking.comment;
+    document.getElementById("datoInf").innerHTML =(startDate.getDate()) + "-" + (startDate.getMonth() + 1);
+    document.getElementById("startTimeInf").innerHTML = startDate.getHours() + ":" + startDate.getMinutes();
+    document.getElementById("endTimeInf").innerHTML = endDate.getHours() + ":" + endDate.getMinutes();
+    document.getElementById("renterInf").innerHTML = booking.renter;
+    document.getElementById("contactPersonInf").innerHTML = booking.contactPerson;
+    document.getElementById("mailInf").innerHTML = booking.mail;
+    document.getElementById("phoneInf").innerHTML = booking.phone;
+    document.getElementById("commentsInf").innerHTML = booking.comment;
     let lightS;
     if (booking.light)
         lightS = "Ja"
     else
         lightS = "Nej"
 
-    document.getElementById("lightInf").innerHTML = "Lys: " + lightS;
+    document.getElementById("lightInf").innerHTML = lightS;
     let lockerRoomS;
     if (booking.lockerRoom)
         lockerRoomS = "Ja"
     else
         lockerRoomS = "Nej"
 
-    document.getElementById("lockerRoomInf").innerHTML = "Omkl: " + lockerRoomS;
+    document.getElementById("lockerRoomInf").innerHTML = lockerRoomS;
 
     const btn = document.getElementById("deleteBtn");
     btn.onclick = function () {
