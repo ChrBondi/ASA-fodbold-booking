@@ -32,7 +32,7 @@
 
         <div id="bookings"></div>
 
-        <input type="button" value="Ny booking" onclick="toggleBookingForm()" id="new-booking-button">
+
         <table id="booking-information">
           <tr>
             <th>Booking information</th>
@@ -93,13 +93,13 @@
             </select>
           <label>Fra Dato: <input type="text" placeholder="DD-MM-YYYY" id="date" onkeyup="copyText()"></label>
           <br>
-          <label>Til Dato: <input type="text" placeholder="DD-MM-YYYY" id="date2"></label>
-          <label>Start tid: <input type="text" placeholder="TT:MM" required id="startDate"> </label>
+          <label>Til Dato: <input type="text" placeholder="DD-MM-YYYY" id="date2" ></label>
+          <label>Start tid: <input type="text" placeholder="TT:MM" required id="startDate" onkeyup="price()"> </label>
           <br>
-          <label>Slut tid: <input type="text" placeholder="TT:MM" required id="endDate"> </label>
+          <label>Slut tid: <input type="text" placeholder="TT:MM" required id="endDate" onkeyup="price()"> </label>
           <br>
           <br>
-          <label id="checkbox1">Lys: <input type="checkbox" id="light"></label>
+          <label id="checkbox1">Lys: <input type="checkbox" id="light" onclick="price()"></label>
           <br>
           <label id="checkbox2">Omkl: <input type="checkbox" id="lockerRoom"></label>
         </div>
@@ -115,36 +115,8 @@
           <label>Bemærkninger: <textarea id="comment"></textarea></label>
         </div>
 
-        <div id="priceData">
-          <h3>Pris oversigt</h3>
-          <br>
-          <table id="price-information">
-            <tr>
-              <th></th>
-              <th> </th>
-              <th>Pris</th>
-            </tr>
-            <tr>
-              <td>Baneleje</td>
-              <td> </td>
-              <td> </td>
-
-            </tr>
-            <tr>
-              <td>Lys</td>
-              <td> </td>
-              <td> </td>
-
-            </tr>
-            <tr>
-              <th>Pris i alt</th>
-              <td> </td>
-              <td> </td>
-
-            </tr>
-          </table>
-        </div>
-
+        <h3 id="totalPrice">Pris: </h3>
+        <br>
         <button id="create-booking-button" onclick="createBooking()">Reserver tid</button>
       </div>
     </div>

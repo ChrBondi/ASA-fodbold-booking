@@ -13,25 +13,22 @@ class Booking {
     }
 
     get price(){
-        let hours = (this.startTime.getTime()-this.endTime.getTime()) / 1000 / 60 / 60;
-        let lightsPrice = 100;
-        for(let i = 0; i < priceList.size; i++) {
-            if(priceList[this.footballField]) {
-                let price = priceList[this.footballField];
-                if(this.light === true) {
-                    lightsPrice = lightsPrice * hours;
-                    price = (price * hours) + lightsPrice;
-                } else {
-                    price = price * hours
-                }
-            }
+        let hours = (this.endTime.getTime()-this.startTime.getTime()) / 1000 / 60 / 60;
+        const lightsPrice = 150; 
+        const elevenPrice = 650;
+        const restPrice = 325;
+        let totalPrice = 0;
+        if (this.footballField === "kunst11m1") {
+            totalPrice += elevenPrice;
+        } else {
+            totalPrice += restPrice;
         }
-
+        if (light) {
+            totalPrice += lightsPrice;
+        }
+        totalPrice *= hours;
+        return totalPrice;
     }
 
 }
-
-const priceList = { kunst11m: 650, kunst8m: 325, kunst5m: 200, kunst3m: 150, kunstFutsall: 150 };
-
-
 
