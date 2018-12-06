@@ -242,16 +242,16 @@ function deleteBooking(id) {
             if (resultat.status >= 400)
                 throw new Error(resultat.status);
             else
-                document.getElementById("datoInf").innerHTML = "Dato:";
-            document.getElementById("startTimeInf").innerHTML = "Start tid:";
-            document.getElementById("endTimeInf").innerHTML = "Slut tid:";
-            document.getElementById("renterInf").innerHTML = "Lejer:";
-            document.getElementById("contactPersonInf").innerHTML = "Kontaktperson:";
-            document.getElementById("mailInf").innerHTML = "Mail:";
-            document.getElementById("phoneInf").innerHTML = "Tlf:";
-            document.getElementById("commentsInf").innerHTML = "Bemærkninger:";
-            document.getElementById("lightInf").innerHTML = "Lys:";
-            document.getElementById("lockerRoomInf").innerHTML = "Omkl:";
+                document.getElementById("datoInf").innerHTML = "";
+            document.getElementById("startTimeInf").innerHTML = "";
+            document.getElementById("endTimeInf").innerHTML = "";
+            document.getElementById("renterInf").innerHTML = "";
+            document.getElementById("contactPersonInf").innerHTML = "";
+            document.getElementById("mailInf").innerHTML = "";
+            document.getElementById("phoneInf").innerHTML = "";
+            document.getElementById("commentsInf").innerHTML = "";
+            document.getElementById("lightInf").innerHTML = "";
+            document.getElementById("lockerRoomInf").innerHTML = "";
             const p = document.getElementById(id);
             p.parentNode.removeChild(p);
             return resultat.json();
