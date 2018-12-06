@@ -1,5 +1,6 @@
 const calendar = new Calendar();
 let bookingsList;
+let elements;
 
 onload = async () => {
 
@@ -24,6 +25,20 @@ onload = async () => {
             month: "long"
         });
     });
+    elements = {
+        date: document.getElementById("date"),
+        date2: document.getElementById("date2"),
+        startTime: document.getElementById("startDate"),
+        endTime: document.getElementById("endDate"),
+        footballField: document.getElementById("footballField"),
+        light: document.getElementById("light"),
+        lockerRoom: document.getElementById("lockerRoom"),
+        renter: document.getElementById("renter"),
+        contactPerson: document.getElementById("contactPerson"),
+        mail: document.getElementById("mail"),
+        phone: document.getElementById("phone"),
+        comment: document.getElementById("comment")
+    }
 };
 
 Handlebars.registerHelper('bookingDate1', date => {
@@ -106,7 +121,7 @@ async function bookingThisDay(day) {
     if (day.toString().length < 2) day = '0' + day;
 
     let currentMonth = currentDate.getMonth() + 1;
-    if(currentMonth.toString().length < 2) currentMonth = '0'+ currentMonth;
+    if (currentMonth.toString().length < 2) currentMonth = '0' + currentMonth;
 
     const bookings = await fetch(`/api/bookingsCalender/${currentDate.getFullYear()}-${currentMonth}-${day}T00:00:00`);
     console.log(bookings);
@@ -128,18 +143,19 @@ function refreshCalendarTemplate(days, fields, currentDay, day) {
 }
 
 async function createBooking() {
-    const date = document.getElementById("date").value;
-    const date2 = document.getElementById("date2").value;
-    const startTime = document.getElementById("startDate").value;
-    const endTime = document.getElementById("endDate").value;
-    const footballField = document.getElementById("footballField").value;
-    const light = document.getElementById("light").checked;
-    const lockerRoom = document.getElementById("lockerRoom").checked;
-    const renter = document.getElementById("renter").value;
-    const contactPerson = document.getElementById("contactPerson").value;
-    const mail = document.getElementById("mail").value;
-    const phone = document.getElementById("phone").value;
-    const comment = document.getElementById("comment").value;
+
+    const date = elements.date.value;
+    const date2 = elements.date2.value;
+    const startTime = elements.startTime.value;
+    const endTime = elements.endTime.value;
+    const footballField = elements.footballField.value;
+    const light = elements.light.checked;
+    const lockerRoom = elements.lockerRoom.checked;
+    const renter = elements.renter.value;
+    const contactPerson = elements.contactPerson.value;
+    const mail = elements.mail.value;
+    const phone = elements.phone.value;
+    const comment = elements.comment.value;
 
     if (date !== "" && startTime !== "" && endTime !== "" && footballField !== "" && renter !== "" && contactPerson !== "" && (mail !== "" || phone !== "")) {
         const timeReqex = /^([01]\d|2[0-3]):?([0-5]\d)$/;
@@ -168,41 +184,42 @@ async function createBooking() {
                 comment: comment
             }
             if (date === date2) {
-                fetch('/api/bookings', {
-                    method: "POST",
-                    body: JSON.stringify(data),
-                    headers: {
-                        "Content-Type": 'application/json'
-                    }
-                })
-                    .then(resultat => {
-                        if (resultat.status >= 400)
-                            throw new Error(resultat.status);
-                        else {
-                            return resultat.json();
-                        }
-                    })
+                const res = await postBooking(data);
+                const json = await res.json();
+                window.alert(json.message);
+                if (json.succes) {
+                    resetBooking()
+                }
             } else {
                 const daysBetween = Math.round(Math.abs((new Date(s[2], s[1] - 1, s[0]).getTime() - new Date(ss[2], ss[1] - 1, ss[0]).getTime()) / (86400000)));
+                let res;
                 for (let i = 0; i <= daysBetween; i = i + 7) {
-                    const res = await fetch('/api/bookings', {
-                        method: "POST",
-                        body: JSON.stringify(data),
-                        headers: {
-                            "Content-Type": 'application/json'
-                        }
-                    })
+                    res = await postBooking(data);
                     data.startDate.setDate(data.startDate.getDate() + 7);
                     data.endDate.setDate(data.endDate.getDate() + 7);
-                    console.log(data);
+                }
+                const json = await res.json();
+                window.alert(json.message)
+                if (json.succes) {
+                    resetBooking();
                 }
             }
         } else {
-            console.log("fejl ikke tid")
+            window.alert("Tid eller dato angivet forkert")
         }
     } else {
-        console.log("fejl: påkrævende felter mangler");
+        window.alert("fejl: påkrævende felter mangler");
     }
+}
+
+function postBooking(data) {
+    return fetch('/api/bookings', {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": 'application/json'
+        }
+    })
 }
 
 function toggleBookingForm() {
@@ -302,6 +319,15 @@ function price() {
             totalPrice += lightsPrice;
         }
         totalPrice *= hours;
-        document.getElementById("totalPrice").innerHTML ="Pris: "+ totalPrice;
+        document.getElementById("totalPrice").innerHTML = "Pris: " + totalPrice;
+    }
+}
+
+function resetBooking() {
+    for (let property in elements) {
+        elements[property].value = "";
+        if (elements[property].type === "checkbox") {
+            elements[property].checked = false;
+        }
     }
 }
