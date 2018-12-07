@@ -46,7 +46,7 @@ onload = async () => {
 
 Handlebars.registerHelper('bookingDate1', date => {
     startDate = new Date(date);
-    return "Dato: " + startDate.getDate() + "-" + (startDate.getMonth() + 1) + "      kl: " + startDate.getHours() + ":" + startDate.getMinutes() + "-";
+    return "Dato: " + startDate.getDate() + "-" + (startDate.getMonth() + 1) +"-"+ startDate.getFullYear() + "      kl: " + startDate.getHours() + ":" + startDate.getMinutes() + "-";
 });
 
 Handlebars.registerHelper('bookingDate2', date => {
@@ -172,7 +172,7 @@ async function createBooking() {
             startDate.setFullYear(s[2], s[1] - 1, s[0]);
             startDate.setHours(st[0], st[1], 0, 0);
             let endDate = new Date();
-            endDate.setFullYear(s[2], s[1] - 1, s[0]);
+            endDate.setFullYear(s[2], s[1]   - 1, s[0]);
             endDate.setHours(et[0], et[1], 0, 0);
             let data = {
                 startDate: startDate,
@@ -230,7 +230,7 @@ function information(id) {
     const booking = bookingsList.find(book => book._id === id);
     const startDate = new Date(booking.startDate);
     const endDate = new Date(booking.endDate);
-    document.getElementById("datoInf").innerHTML = (startDate.getDate()) + "-" + (startDate.getMonth() + 1);
+    document.getElementById("datoInf").innerHTML = (startDate.getDate()) + "-" + (startDate.getMonth() + 1)+"-"+startDate.getFullYear();
     document.getElementById("startTimeInf").innerHTML = startDate.getHours() + ":" + startDate.getMinutes();
     document.getElementById("endTimeInf").innerHTML = endDate.getHours() + ":" + endDate.getMinutes();
     document.getElementById("renterInf").innerHTML = booking.renter;

@@ -91,7 +91,7 @@ app.get('/logout', function (request, response) {
 });
 
 app.get('/api/bookings/:name', function (request, response) {
-    booking.find({ footballField: request.params.name })
+    booking.find({ footballField: request.params.name }).sort([['startDate', 1]])
         .then(result => response.json(result))
 });
 
