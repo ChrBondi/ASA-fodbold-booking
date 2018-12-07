@@ -96,6 +96,8 @@ app.get('/api/bookings/:name', function (request, response) {
 });
 
 app.post('/api/bookings', async function (request, response) {
+    const name = request.session.name;
+    if (name) {
     let unavailable = true;
     const startDate = new Date(request.body.startDate);
     const endDate = new Date(request.body.endDate)
@@ -127,6 +129,10 @@ app.post('/api/bookings', async function (request, response) {
     } else {
         response.json({succes: false, message: "Tid er taget"});
     }
+}  else {
+    response.json({message : "Lorte spambot"})
+}
+
 })
 
 app.delete('/api/bookings/:id', function (request, response) {
@@ -136,7 +142,7 @@ app.delete('/api/bookings/:id', function (request, response) {
         .then(v => response.json(v));
 });
 
-app.listen(8080);
+app.listen(process.env.PORT || 8080);
 
 function isTimeAvailable(startDate, endDate, bstartDate, bendDate) {
     return ((startDate.getTime() >= bstartDate.getTime() && startDate.getTime() < bendDate.getTime())
@@ -151,5 +157,3 @@ function checkBookings(startDate, endDate, bookings) {
 }
 
 module.exports = app;
-
-console.log('Lytter på port 8080 ...');
