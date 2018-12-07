@@ -29,7 +29,9 @@
             {{/each}}
         </select>
 
-        <div id="bookings"></div>
+          <div class="scroller" id="scrollbar">
+              <div id="bookings" class="force-overflow"></div>
+          </div>
 
 
         <table id="booking-information">
@@ -115,4 +117,5 @@
           <button id="logout-button" onclick="logout()">Log ud</button>
 
     </div>
+
 </body>
