@@ -136,7 +136,7 @@ app.delete('/api/bookings/:id', function (request, response) {
         .then(v => response.json(v));
 });
 
-app.listen(8080);
+app.listen(process.env.PORT || 8080);
 
 function isTimeAvailable(startDate, endDate, bstartDate, bendDate) {
     return ((startDate.getTime() >= bstartDate.getTime() && startDate.getTime() < bendDate.getTime())
@@ -151,5 +151,3 @@ function checkBookings(startDate, endDate, bookings) {
 }
 
 module.exports = app;
-
-console.log('Lytter på port 8080 ...');
