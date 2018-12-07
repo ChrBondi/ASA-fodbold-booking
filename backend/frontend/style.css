@@ -16,7 +16,6 @@ body {
 h1 {
     text-align: center;
     text-transform: uppercase;
-
 }
 
 label {
@@ -47,10 +46,8 @@ label {
 
 header {
     grid-column: 1 / 4;
-
     padding: 1rem;
     color: white;
-
 }
 
 #settings-buttons {
@@ -72,8 +69,6 @@ main {
 
 #booking-details {
     grid-column: 1 / 2;
-
-
 }
 
 #button {
@@ -125,3 +120,4 @@ select {
     padding-left: 15px;
     padding-right: 20px;
 }
+
