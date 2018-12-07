@@ -77,11 +77,12 @@
       </div>
 
       <div id="booking-form">
+          <br>
         <h2 id="ny-booking-label">Ny booking</h2>
 
         <div id="dateData">
-          <h3>Booking information</h3>
-
+            <br>
+            <br>
           <select id="footballField">
                 <option disabled selected value> -- vælg en bane --</option>
                 {{#each options}}
@@ -95,21 +96,23 @@
           <label>Slut tid: <input type="text" placeholder="TT:MM" required id="endDate" onkeyup="price()"> </label>
           <label id="checkbox1">Lys: <input type="checkbox" id="light" onclick="price()"></label>
           <label id="checkbox2">Omkl: <input type="checkbox" id="lockerRoom"></label>
+        </div>
 
+        <div id="contactData">
             <br>
-            <br>
-
           <label>Lejer: <input type="text" required id="renter"></label>
           <label>Kontaktperson: <input type="text" required id="contactPerson"></label>
           <label>Mail: <input type="text" id="mail"></label>
           <label>Tlf: <input type="text" id="phone"></label>
           <label>Bemærkninger: <textarea id="comment"></textarea></label>
         </div>
-
-        <p id="totalPrice">Pris: 0</p>
         <br>
+
+          <div id="priceData">
+              <p id="totalPrice">Pris: 0</p>
+          </div>
         <button id="create-booking-button" onclick="createBooking()">Reserver tid</button>
           <button id="logout-button" onclick="logout()">Log ud</button>
-      </div>
+
     </div>
 </body>

@@ -30,13 +30,15 @@ label {
 /* midlertidig */
 #create-booking-button {
     grid-column: 2/3;
-    margin-left: 35%;
-    margin-right: 35%;
+    margin-left: 30%;
+    margin-right: 30%;
 
 }
 
 #logout-button {
-    grid-column: 5/6;
+    grid-column: 3/4;
+    margin-left: 30%;
+    margin-right: 30%;
 }
 
 .grid-container {
@@ -72,8 +74,6 @@ main {
 
 #booking-details {
     grid-column: 1 / 2;
-
-
 }
 
 #button {
@@ -125,3 +125,21 @@ select {
     padding-left: 15px;
     padding-right: 20px;
 }
+
+#dateData {
+    grid-column: 2/3;
+    width: 70%;
+}
+
+#contactData {
+    grid-column: 3/4}
+
+#priceData {
+    padding-left: 5px;
+    grid-column: 2/3;
+}
+
+#deleteBtn {
+    margin: 3%;
+}
+
