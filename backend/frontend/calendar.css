@@ -75,6 +75,15 @@ ul {
     background: #ddd;
 }
 
+
+#calender-booking {
+    margin: 2px;
+    padding: 2px;
+    border: 2px solid #c80606;
+    border-radius: 5px;
+    background-color: #ddd;
+}
+
 /* /\* Highlight the "current" day *\/ */
 /* .days li .active { */
 /*     padding: 5px; */
