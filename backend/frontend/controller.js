@@ -160,7 +160,7 @@ async function createBooking() {
     const phone = elements.phone.value;
     const comment = elements.comment.value;
 
-    if (date !== "" && startTime !== "" && endTime !== "" && footballField !== "" && renter !== "" && contactPerson !== "" && (mail !== "" || phone !== "")) {
+    if (date !== "" && startTime !== "" && endTime !== "" && footballField !== "") {
         const timeReqex = /^([01]\d|2[0-3]):?([0-5]\d)$/;
         const dateReqex = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
         if (timeReqex.test(startTime) && timeReqex.test(endTime) && dateReqex.test(date)) {
