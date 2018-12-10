@@ -144,7 +144,7 @@ app.delete('/api/bookings/:id', function (request, response) {
 
 app.listen(process.env.PORT || 8080);
 
-function isTimeAvailable(startDate, endDate, bstartDate, bendDate) {
+function isTimeUnavailable(startDate, endDate, bstartDate, bendDate) {
     return ((startDate.getTime() >= bstartDate.getTime() && startDate.getTime() < bendDate.getTime())
         || (endDate.getTime() < bstartDate.getTime() && endDate.getTime() >= bendDate.getTime())
         || (startDate.getTime() <= bstartDate.getTime() && endDate.getTime() >= bendDate.getTime()))
@@ -152,7 +152,7 @@ function isTimeAvailable(startDate, endDate, bstartDate, bendDate) {
 
 function checkBookings(startDate, endDate, bookings) {
     return bookings.some(b => {
-        return isTimeAvailable(startDate, endDate, b.startDate, b.endDate);
+        return isTimeUnavailable(startDate, endDate, b.startDate, b.endDate);
     })
 }
 
