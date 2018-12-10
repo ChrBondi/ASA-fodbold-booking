@@ -35,7 +35,7 @@ let booking = mongoose.model('Bookinger', bookingSchema);
 
 app.post('/login', function (request, response) {
     const { name, password } = request.body;
-    if (name === 'nn' && password === 'pp') {
+    if (name === 'asaaph' && password === 'asafodbold') {
         request.session.name = name;
         response.send({ ok: true });
     } else {
